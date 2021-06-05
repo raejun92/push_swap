@@ -10,6 +10,7 @@
 // 기능: 인수가 문자형태인 숫자로 들어왔는지 확인, 리턴: 맞게 들어왔으면 1 아니면 0
 int			check_input(char *param)
 {
+	// 인수에 ''이나 ""이 올때 안 걸러짐
 	if (!param)
 		return (0);
 	while (*param)
