@@ -1,5 +1,5 @@
 #ifndef PUSH_SWAP_H
-# define PSUH_SWAP_H
+# define PUSH_SWAP_H
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -18,6 +18,6 @@ typedef struct	s_stack
 	int			number;
 }				t_stack;
 
-int				ft_isgidit(int c);
+int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
 #endif
