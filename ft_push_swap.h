@@ -11,13 +11,18 @@ typedef struct	s_node
 	int			data;
 }				t_node;
 
-typedef struct	s_stack
+typedef struct	s_list
 {
 	t_node		*head;
-	t_node		*cur;
-	int			number;
-}				t_stack;
+	t_node		*tail;
+	int			count;
+}				t_list;
 
+/* ft_utils.c */
 int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
+
+/* ft_linked_list.c */
+t_node			*new_node(int data);
+void			init_list(t_list *list);
 #endif

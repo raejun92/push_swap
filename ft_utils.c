@@ -8,6 +8,7 @@ static int	is_space(char c)
 	return (0);
 }
 
+// 기능: atoi 및 int형 범위에 있는지 확인, 리턴: int범위가 아니면 종료 맞으면 int형 숫자
 int			ft_atoi(const char *str)
 {
 	int			i;
@@ -28,9 +29,9 @@ int			ft_atoi(const char *str)
 	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9')
 	{
 		if (num * sign > 2147483647)
-			return (-1);
+			exit (0);
 		if (num * sign < -2147483648)
-			return (0);
+			exit (0);
 		num = (num * 10) + (str[i] - '0');
 		i++;
 	}

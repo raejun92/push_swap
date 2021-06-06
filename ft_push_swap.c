@@ -7,14 +7,15 @@
 	
 // }
 
-// 기능: 인수가 문자형태인 숫자로 들어왔는지 확인, 리턴: 맞게 들어왔으면 1 아니면 0
-int			check_input(char *param)
+// 기능: 인수가 문자형태인 숫자로 들어왔는지 확인, 리턴: 맞으면 1 아니면 0
+int			check_text_numeric(char *param)
 {
-	// 인수에 ''이나 ""이 올때 안 걸러짐
+	// 인수에 ''이나 ""이 들어올때 안 걸러짐
 	if (!param)
 		return (0);
 	while (*param)
 	{
+		// 숫자인지 확인
 		if (!(ft_isdigit(*param)))
 			return(0);
 		param++;
@@ -22,23 +23,27 @@ int			check_input(char *param)
 	return (1);
 }
 
-// 기능: int형 인수가 int 범위에 속하는지 검사
-/* int			check_number_range()
+// 기능: 들어온 인수가 조건에 맞게 들어온 것인지 확인, 리턴: 맞으면 1 틀리면 0
+int			check_input(char *param, t_list *stack_a)
 {
-
-} */
+	if (!(check_text_numeric(param))) // 인수가 숫자인지 확인
+		return (0);
+	stack_a->tail->data = ft_atoi(param);
+}
 
 int			main(int argc, char **argv)
 {
-	t_stack stack;
-	int check;
+	t_list	stack_a;
+	t_list	stack_b;
+	int		check;
 
 	if (argc < 3)
 		return (0);
+	
 	while (*(++argv))
 	{
 		printf("|%s|\n", *argv);
-		check = check_input(*argv);
+		check = check_input(*argv, &stack_a);
 		printf("%d\n", check);
 	}
 	
