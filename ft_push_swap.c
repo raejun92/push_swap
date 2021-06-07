@@ -24,7 +24,7 @@ int			check_text_numeric(char *param)
 }
 
 // 기능: 들어온 인수가 조건에 맞게 들어온 것인지 확인, 리턴: 맞으면 노드에 인수 추가 틀리면 종료
-int			check_input(char *param, t_list, *stack_a)
+void			check_input(char *param, t_list *stack_a)
 {
 	char	**str;
 	
@@ -37,7 +37,6 @@ int			check_input(char *param, t_list, *stack_a)
 		param++;
 	}
 	free_malloc(str);
-	return (1);
 }
 
 int			main(int argc, char **argv)
@@ -52,11 +51,7 @@ int			main(int argc, char **argv)
 	init_list(&stack_b);
 	while (*(++argv))
 	{
-		printf("|%s|\n", *argv);
-		check = check_input(*argv);
-		printf("%d\n", check);
+		check_input(*argv, &stack_a);
 	}
-	
-	//ft_sa(&stack);
 	return (0);
 }

@@ -29,4 +29,10 @@ char			**ft_split(char const *s, char c);
 /* ft_linked_list.c */
 t_node			*new_node(int data);
 void			init_list(t_list *list);
+void			add_node(t_list *list, int data);
+void			view_node(t_list *list);
+
+/* ft_switch.c */
+void            sa_sb(t_list *stack);
+void            ss(t_list *stack_a, t_list *stack_b);
 #endif

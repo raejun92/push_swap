@@ -1,9 +1,12 @@
 #include "ft_push_swap.h"
+#include <stdio.h>
 
 // 기능: 새로운 노드 생성, 리턴: t_node
 t_node			*new_node(int data)
 {
-	t_node *node = (t_node *)malloc(sizeof(t_node) * 1);
+	t_node *node;
+	
+	node = (t_node *)malloc(sizeof(t_node) * 1);
 	node->data = data;
 	node->prev = NULL;
 	node->next = NULL;
@@ -23,8 +26,9 @@ void			init_list(t_list *list)
 // 기능: 노드 추가, 리턴: void
 void			add_node(t_list *list, int data)
 {
-	t_node *cur = new_node(data);
+	t_node *cur;
 
+	cur = new_node(data);
 	cur->prev = list->tail->prev;
 	cur->next = list->tail;
 	list->tail->prev->next = cur;
@@ -32,3 +36,14 @@ void			add_node(t_list *list, int data)
 	list->count++;
 }
 
+void			view_node(t_list *list)
+{
+	t_node *seek;
+
+	seek = list->head->next;
+	while (seek != list->tail)
+	{
+		printf("%d\n", seek->data);
+		seek = seek->next;
+	}
+}
