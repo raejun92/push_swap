@@ -1,11 +1,4 @@
 #include "ft_push_swap.h"
-#include <stdio.h>
-
-// 기능: a의 맨 위 2소요 위치 변경, 리턴: void
-// void		ft_sa(t_stack *stack)
-// {
-	
-// }
 
 // 기능: 인수가 문자형태인 숫자로 들어왔는지 확인, 리턴: 맞으면 1 아니면 0
 int			check_text_numeric(char *param)
@@ -50,8 +43,12 @@ int			main(int argc, char **argv)
 	init_list(&stack_a);
 	init_list(&stack_b);
 	while (*(++argv))
-	{
-		check_input(*argv, &stack_a);
-	}
+		check_input(*argv, &stack_b);
+	view_node(&stack_b);
+	printf("\n");
+	pa(&stack_a, &stack_b);
+	view_node(&stack_a);
+	printf("\n");
+	view_node(&stack_b);
 	return (0);
 }
