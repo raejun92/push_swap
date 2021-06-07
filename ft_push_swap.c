@@ -36,19 +36,19 @@ int			main(int argc, char **argv)
 {
 	t_list	stack_a;
 	t_list	stack_b;
-	int		check;
 
 	if (argc < 3)
 		return (0);
 	init_list(&stack_a);
 	init_list(&stack_b);
 	while (*(++argv))
-		check_input(*argv, &stack_b);
-	view_node(&stack_b);
-	printf("\n");
-	pa(&stack_a, &stack_b);
+		check_input(*argv, &stack_a);
 	view_node(&stack_a);
 	printf("\n");
+	add_node(&stack_b, 10);
+	pb(&stack_a, &stack_b);
 	view_node(&stack_b);
+	printf("\n");
+	view_node(&stack_a);
 	return (0);
 }

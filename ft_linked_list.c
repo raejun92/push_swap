@@ -22,7 +22,7 @@ void			init_list(t_list *list)
 	list->count = 0;
 }
 
-// 기능: 노드 추가, 리턴: void
+// 기능: tail에 노드 추가, 리턴: void
 void			add_node(t_list *list, int data)
 {
 	t_node *cur;
