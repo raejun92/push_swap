@@ -1,5 +1,8 @@
 /test.dSYM
 /libft
+/a.out.dSYM
+/.vscode
+/master
 
 test
 test.c
@@ -9,9 +12,7 @@ test.c
 
 a.out
 
-/.vscode
 
-/master
 
 note.md
 정리.md
