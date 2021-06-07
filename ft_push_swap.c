@@ -23,12 +23,18 @@ int			check_text_numeric(char *param)
 	return (1);
 }
 
-// 기능: 들어온 인수가 조건에 맞게 들어온 것인지 확인, 리턴: 맞으면 1 틀리면 0
-int			check_input(char *param, t_list *stack_a)
+// 기능: 들어온 인수가 조건에 맞게 들어온 것인지 확인, 리턴: 맞으면 인수 출력 틀리면 종료
+int			check_input(char *param)
 {
+	int	tmp;
+
 	if (!(check_text_numeric(param))) // 인수가 숫자인지 확인
-		return (0);
-	stack_a->tail->data = ft_atoi(param);
+		exit (0);
+	// stack_a->tail->data = ft_atoi(param);
+	tmp = ft_atoi(param);
+	if (!(tmp))
+		exit (0);
+	return (tmp);
 }
 
 int			main(int argc, char **argv)
@@ -43,7 +49,7 @@ int			main(int argc, char **argv)
 	while (*(++argv))
 	{
 		printf("|%s|\n", *argv);
-		check = check_input(*argv, &stack_a);
+		check = check_input(*argv);
 		printf("%d\n", check);
 	}
 	
