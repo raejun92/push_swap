@@ -10,7 +10,7 @@ void			ra_rb(t_list *stack)
 
 	if (!stack)
 		exit (0);
-	tmp = stack->head->next; // 임시 저장하지 않으면 주소를 잃음
+	tmp = stack->head->next; // 첫번째 노드를 임시 저장, 임시 저장하지 않으면 주소를 잃음
 	stack->head->next = stack->head->next->next; // 헤더는 두번째 노드를 기리킴
 	stack->head->next->next->prev = stack->head->next->prev; // 두번째였던 노드는 첫번째였던 노드가 가리켰던 head를 가리킴
 	tmp->prev = stack->tail->prev; // 첫번째였던 노드의 prev는 테일이 가리키던 곳을 가리킴

@@ -48,12 +48,11 @@ int			main(int argc, char **argv)
 	add_node(&stack_b, 10);
 	add_node(&stack_b, 5);
 	add_node(&stack_b, 29);
-	printf("stackB: ");
 	view_node(&stack_b);
 	printf("\n");
-	rr(&stack_a, &stack_b);
+	rrr(&stack_a, &stack_b);
 	view_node(&stack_a);
-	printf("\n stackB: ");
+	printf("\n");
 	view_node(&stack_b);
 	return (0);
 }

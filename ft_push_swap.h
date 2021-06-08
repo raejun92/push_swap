@@ -38,12 +38,16 @@ void			remove_node(t_list *list, t_node *cur);
 void            sa_sb(t_list *stack);
 void            ss(t_list *stack_a, t_list *stack_b);
 
-/* ft_push */
+/* ft_push.c */
 void			pa(t_list *stack_a, t_list *stack_b);
 void			pb(t_list *stack_a, t_list *stack_b);
 
-/* ft_rotate */
+/* ft_rotate.c */
 void			ra_rb(t_list *stack);
 void			rr(t_list *stack_a, t_list *stack_b);
+
+/* ft_reverse_rotate.c */
+void			rra_rrb(t_list *stack);
+void			rrr(t_list *stack_a, t_list *stack_b);
 
 #endif
