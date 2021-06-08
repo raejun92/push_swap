@@ -46,9 +46,14 @@ int			main(int argc, char **argv)
 	view_node(&stack_a);
 	printf("\n");
 	add_node(&stack_b, 10);
-	pb(&stack_a, &stack_b);
+	add_node(&stack_b, 5);
+	add_node(&stack_b, 29);
+	printf("stackB: ");
 	view_node(&stack_b);
 	printf("\n");
+	rr(&stack_a, &stack_b);
 	view_node(&stack_a);
+	printf("\n stackB: ");
+	view_node(&stack_b);
 	return (0);
 }
