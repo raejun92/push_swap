@@ -7,8 +7,8 @@ t_node			*new_node(int data)
 	
 	node = (t_node *)malloc(sizeof(t_node) * 1);
 	node->data = data;
-	node->prev = NULL;
 	node->next = NULL;
+	node->prev = NULL;
 	return node;
 }
 
