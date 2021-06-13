@@ -29,9 +29,9 @@ int			ft_atoi(const char *str)
 	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9')
 	{
 		if (num * sign > 2147483647)
-			exit (0);
+			error_msg();
 		if (num * sign < -2147483648)
-			exit (0);
+			error_msg();
 		num = (num * 10) + (str[i] - '0');
 		i++;
 	}
@@ -43,4 +43,11 @@ int			ft_isdigit(int c)
 	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
+}
+
+void		error_msg()
+{
+	write(1, "Error", 5);
+	write(1, "\n", 1);
+	exit(0);
 }

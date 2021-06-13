@@ -21,7 +21,7 @@ void			check_input(char *param, t_list *stack_a)
 	int a;
 
 	if (!(check_text_numeric(param))) // 인수가 숫자인지 확인
-		exit (0);
+		error_msg();
 	a = ft_atoi(param);
 	add_node(stack_a, a); // 인수를 스택a에 추가
 }
