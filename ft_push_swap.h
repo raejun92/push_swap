@@ -22,6 +22,7 @@ typedef struct	s_list
 /* ft_utils.c */
 int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
+void			error_msg();
 
 /* ft_linked_list.c */
 t_node			*new_node(int data);
