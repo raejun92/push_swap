@@ -25,14 +25,11 @@ void			check_input(char *param, t_list *stack_a)
 
 void			sort_ascending(t_list stack_a, int *sorted_node)
 {
-	int i;
-	
-	i = 0;
 	while (stack_a.head != stack_a.tail)
 	{
-		sorted_node[i] = stack_a.head->data;
+		*sorted_node = stack_a.head->data;
 		stack_a.head = stack_a.head->next;		
-		i++;
+		sorted_node++;
 	}
 }
 
