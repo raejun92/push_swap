@@ -20,7 +20,6 @@ typedef struct	s_list
 }				t_list;
 
 /* ft_utils.c */
-int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
 void			error_msg();
 
@@ -46,5 +45,8 @@ void			rr(t_list *stack_a, t_list *stack_b);
 /* ft_reverse_rotate.c */
 void			rra_rrb(t_list *stack);
 void			rrr(t_list *stack_a, t_list *stack_b);
+
+/* ft_check_input.c */
+void			check_input(char *param, t_list *stack_a);
 
 #endif

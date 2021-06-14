@@ -1,36 +1,73 @@
 #include "ft_push_swap.h"
 
-// 기능: 인수가 문자형태인 숫자로 들어왔는지 확인, 리턴: 맞으면 1 아니면 0
-int				check_text_numeric(char *param)
-{
-	if (!param)
-		return (0);
-	while (*param)
-	{
-		// 숫자인지 확인
-		if (!(ft_isdigit(*param)))
-			return(0);
-		param++;
-	}
-	return (1);
-}
-
-// 기능: 들어온 인수가 조건에 맞게 들어온 것인지 확인, 리턴: 맞으면 스택에 노드 추가 틀리면 종료
-void			check_input(char *param, t_list *stack_a)
-{
-	if (!(check_text_numeric(param))) // 인수가 숫자인지 확인
-		error_msg();
-	add_node(stack_a, ft_atoi(param)); // 인수를 스택a에 추가
-}
-
-void			sort_ascending(t_list stack_a, int *sorted_node)
+// 기능: 노드의 데이터를 배열에 넣음, 리턴: void
+void			input_array(t_list stack_a, int *sorted_node)
 {
 	while (stack_a.head != stack_a.tail->prev)
 	{
 		*sorted_node = stack_a.head->next->data;
 		stack_a.head = stack_a.head->next;
+		printf("D %d\n", *sorted_node);
 		sorted_node++;
 	}
+}
+
+// 기능: 노드를 배열로 오름차순 정렬, 리턴: void
+void			sort_ascending(t_list stack_a, int *sorted_node)
+{
+	int i;
+	int j;
+	int	size;
+	int	tmp;
+
+	input_array(stack_a, sorted_node);
+	size = 0;
+	i = 0;
+	while (sorted_node[size])
+		size++;
+	while (i < size - 1)
+	{
+		j = 0;
+		while (j < size - 1 - i)
+		{
+			if (sorted_node[j] == sorted_node[j + 1])
+				error_msg();
+			if (sorted_node[j] > sorted_node[j + 1])
+			{
+				tmp = sorted_node[j];
+				sorted_node[j] = sorted_node[j + 1];
+				sorted_node[j + 1] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+// 기능: 배열의 중간 데이터를 출력, 리턴: 배열 중간의 데이터
+int				find_middle_data(int *sorted_node)
+{
+	int i;
+	int data;
+
+	i = 0;
+	while (sorted_node[i])
+		i++;
+	if ((i + 1) % 2 != 0 && i % 2 != 0) // ex) 1 4 5가 들어오면 data는 4 출력, i = 1
+        i = i / 2 + 1;
+    else
+        i = i / 2;
+	data = sorted_node[i];
+	return (data);
+}
+
+// 기능: 노드를 미리 정렬시켜 놓은 배열을 만들고 추가 기능 예정, 리턴: void
+void			make_sorted_array(t_list *stack_a, int *sorted_node)
+{
+	int middle_data;
+
+	sort_ascending(*stack_a, sorted_node); // 배열에 오름차순 정렬
+	middle_data = find_middle_data(sorted_node);
 }
 
 int				main(int argc, char **argv)
@@ -46,7 +83,7 @@ int				main(int argc, char **argv)
 	sorted_node = (int *)malloc(sizeof(int) * (argc - 1));
 	while (*(++argv))
 		check_input(*argv, &stack_a);
-	sort_ascending(stack_a, sorted_node);
+	make_sorted_array(&stack_a, sorted_node);
 	view_node(&stack_a);
 	// printf("\n");
 	// add_node(&stack_b, 10);

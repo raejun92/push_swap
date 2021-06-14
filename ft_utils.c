@@ -38,13 +38,6 @@ int			ft_atoi(const char *str)
 	return (sign * num);
 }
 
-int			ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
-
 void		error_msg()
 {
 	write(1, "Error", 5);
