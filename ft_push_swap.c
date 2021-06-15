@@ -20,7 +20,7 @@ void			sort_ascending(t_list stack_a, int *sorted_node)
 	int	tmp;
 
 	i = 0;
-	size = intlen(sorted_node);
+	size = intlen(sorted_node, stack_a.count);
 	while (i < size - 1)
 	{
 		j = 0;
@@ -50,12 +50,12 @@ void			make_sorted_array(t_list stack_a, int *sorted_node)
 }
 
 // 기능: 배열의 중간 데이터를 출력, 리턴: 배열 중간의 데이터
-int				find_middle_data(int *sorted_node)
+int				find_middle_data(int *sorted_node, t_list stack_a)
 {
 	int i;
 	int data;
 
-	i = intlen(sorted_node);
+	i = intlen(sorted_node, stack_a.count);
 	if ((i + 1) % 2 != 0 && i % 2 != 0) // ex) 1 4 5가 들어오면 data는 4 출력, i = 1
         i = i / 2 + 1;
     else
@@ -89,7 +89,7 @@ void			algorithm(t_list *stack_a, t_list *stack_b, int *sorted_node)
 {
 	int middle_data;
 
-	middle_data = find_middle_data(sorted_node); // 배열의 가운데 데이터 추출
+	middle_data = find_middle_data(sorted_node, *stack_a); // 배열의 가운데 데이터 추출
 	divide_half(stack_a, stack_b, middle_data); // 가운데 데이터를 기준으로 스택을 반으로 나눔
 }
 

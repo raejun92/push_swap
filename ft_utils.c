@@ -45,12 +45,12 @@ void		error_msg()
 	exit(0);
 }
 
-int			intlen(int *num)
+int			intlen(int *num, int count)
 {
 	int i;
 
 	i = 0;
-	while (num[i])
+	while (i < count)
 		i++;
 	return (i);
 }
