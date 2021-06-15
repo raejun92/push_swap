@@ -17,6 +17,7 @@ typedef struct	s_list
 	t_node		*head;
 	t_node		*tail;
 	int			count;
+	char		name;
 }				t_list;
 
 /* ft_utils.c */

@@ -17,6 +17,10 @@ void			ra_rb(t_list *stack)
 	stack->tail->prev->next = tmp; // 테일을 가리키던 맨 끝 노드는 헤드가 가리키던 맨 앞 노드를 가리킴
 	tmp->next = stack->tail; // 첫번째였던 노드는 테일을 가리킴
 	stack->tail->prev = tmp; // 테일의 prev는 첫번째였던 노드를 가리킴
+	if (stack->name == 'a')
+		printf("ra\n");
+	else
+		printf("rb\n");
 }
 
 // 기능: a와 b의 요소 위로 로테이션, 리턴: void
