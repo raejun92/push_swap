@@ -7,6 +7,7 @@ void			input_array(t_list stack_a, int *sorted_node)
 	{
 		*sorted_node = stack_a.head->next->data;
 		stack_a.head = stack_a.head->next;
+		printf("data %d\n", *sorted_node);
 		sorted_node++;
 	}
 }

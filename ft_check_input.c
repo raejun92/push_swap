@@ -13,6 +13,10 @@ static int      check_text_numeric(char *param)
 {
 	if (!param)
 		return (0);
+	if (!(ft_isdigit(*param) || *param == '-' || *param == '+'))
+		return (0);
+	else
+		param++;
 	while (*param)
 	{
 		// 숫자인지 확인
