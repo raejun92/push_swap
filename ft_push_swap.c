@@ -24,6 +24,7 @@ void			sort_ascending(t_list stack_a, int *sorted_node)
 	size = 0;
 	i = 0;
 	size = intlen(sorted_node);
+	printf("size %d\n", size);
 	while (i < size - 1)
 	{
 		j = 0;
@@ -85,9 +86,9 @@ int				main(int argc, char **argv)
 		return (0);
 	init_list(&stack_a);
 	init_list(&stack_b);
-	sorted_node = (int *)malloc(sizeof(int) * (argc - 1));
 	while (*(++argv))
 		check_input(*argv, &stack_a);
+	sorted_node = (int *)malloc(sizeof(int) * (argc - 1));
 	make_sorted_array(stack_a, sorted_node);
 	view_node(&stack_a);
 	// printf("\n");
