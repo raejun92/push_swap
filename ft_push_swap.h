@@ -51,4 +51,7 @@ void			rrr(t_list *stack_a, t_list *stack_b);
 /* ft_check_input.c */
 void			check_input(char *param, t_list *stack_a);
 
+/* ft_make_sorted_array.c */
+void			make_sorted_array(t_list stack_a, int *sorted_node);
+
 #endif
