@@ -5,11 +5,13 @@ void            sa_sb(t_list *stack)
 {
     int tmp;
 
-    if (!stack)
-        exit (0);
     tmp = stack->head->next->data; // tmp에 스택의 첫번째 노드의 데이터 저장
     stack->head->next->data = stack->head->next->next->data; // 스택의 첫번째 노드의 데이터에 두번째 노드의 데이터 저장
     stack->head->next->next->data = tmp; // 스택의 두번째 노드의 데이터에 첫번째 노드의 데이터 저장
+    if (stack->name == 'a')
+		printf("sa\n");
+	else
+		printf("sb\n");
 }
 
 // 기능 : 스택a와 스택b 둘다 취상위 2개 자리를 바꿈, 리턴: void
@@ -17,8 +19,6 @@ void            ss(t_list *stack_a, t_list *stack_b)
 {
     int tmp;
 
-    if (!(stack_a) || !(stack_b))
-        exit (0);
     sa_sb(stack_a);
     sa_sb(stack_b);
 }

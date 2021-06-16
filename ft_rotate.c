@@ -8,8 +8,6 @@ void			ra_rb(t_list *stack)
 {
 	t_node *tmp;
 
-	if (!stack)
-		exit (0);
 	tmp = stack->head->next; // 첫번째 노드를 임시 저장, 임시 저장하지 않으면 주소를 잃음
 	stack->head->next = stack->head->next->next; // 헤더는 두번째 노드를 기리킴
 	stack->head->next->next->prev = stack->head->next->prev; // 두번째였던 노드는 첫번째였던 노드가 가리켰던 head를 가리킴
@@ -26,8 +24,6 @@ void			ra_rb(t_list *stack)
 // 기능: a와 b의 요소 위로 로테이션, 리턴: void
 void			rr(t_list *stack_a, t_list *stack_b)
 {
-	if (!(stack_a) || !(stack_b))
-		exit (0);
 	ra_rb(stack_a);
 	ra_rb(stack_b);
 }

@@ -10,8 +10,6 @@ void			rra_rrb(t_list *stack)
 {
 	t_node *tmp;
 
-	if (!stack)
-		exit (0);
 	tmp = stack->tail->prev; // 맨 뒤 노드를 임시 저장, 임시 저장하지 않으면 주소를 잃음
 	stack->tail->prev->prev->next = stack->tail->prev->next; // 뒤에서 2번째 노드를 테일을 가리키게 함
 	stack->tail->prev = stack->tail->prev->prev; // 테일이 맨 뒤에서 앞 노드를 가리키게 함
@@ -24,8 +22,6 @@ void			rra_rrb(t_list *stack)
 // 기능: a와 b 스택의 모든 요소 아래로 로페이션, 리턴: void
 void			rrr(t_list *stack_a, t_list *stack_b)
 {
-	if (!(stack_a) || !(stack_b))
-		exit (0);
 	rra_rrb(stack_a);
 	rra_rrb(stack_b);
 }
