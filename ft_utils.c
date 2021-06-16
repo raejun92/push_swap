@@ -44,13 +44,3 @@ void		error_msg()
 	write(1, "\n", 1);
 	exit(0);
 }
-
-int			intlen(int *num, int count)
-{
-	int i;
-
-	i = 0;
-	while (i < count)
-		i++;
-	return (i);
-}

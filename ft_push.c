@@ -1,8 +1,5 @@
 #include "ft_push_swap.h"
 
-// pa: b의 맨 위 1개를 a로 이동
-// pb: a의 맨 위 1개를 b로 이동
-
 // 기능: b의 맨 위 1개를 a의 맨 위로 이동, 리턴: void
 void			pa(t_list *stack_a, t_list *stack_b)
 {
@@ -38,5 +35,4 @@ void			pb(t_list *stack_a, t_list *stack_b)
 	stack_b->head->next = tmp_a;
 	stack_b->head->next->prev = tmp_a;
 	stack_b->count++;
-	printf("pb\n");
 }

@@ -17,13 +17,11 @@ typedef struct	s_list
 	t_node		*head;
 	t_node		*tail;
 	int			count;
-	char		name;
 }				t_list;
 
 /* ft_utils.c */
 int				ft_atoi(const char *str);
 void			error_msg();
-int				intlen(int *num, int count);
 
 /* ft_linked_list.c */
 t_node			*new_node(int data);

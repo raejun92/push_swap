@@ -20,7 +20,7 @@ static void		sort_ascending(t_list stack_a, int *sorted_node)
 	int	tmp;
 
 	i = 0;
-	size = intlen(sorted_node, stack_a.count);
+	size = stack_a.count;
 	while (i < size - 1)
 	{
 		j = 0;

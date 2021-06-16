@@ -1,10 +1,5 @@
 #include "ft_push_swap.h"
 
-// REVERSE ROTATE
-// rra: a의 모든 요소 아래로 로테이션
-// rrb: b의 모든 요소 아래로 로테이션
-// rrr: rra와 rrb 동시 수행
-
 // 기능: a 또는 b 스택의 모든 요소 아래로 로테이션, 리턴: void
 void			rra_rrb(t_list *stack)
 {
