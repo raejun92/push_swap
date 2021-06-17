@@ -49,33 +49,59 @@ int			check_ascending(t_list stack_a)
 	return (1);
 }
 
-// 기능: 3개 노드 정렬(2개도 됨), 리턴: void
-void			sort_three_node_a(t_list *stack)
+static void		sort_three_node_a2(t_list *stack)
 {
-	while (!(check_ascending(*stack)))
-	{
-		if (stack->head->next->data > stack->head->next->next->data)
-		{
-			sa_sb(stack);
-			printf("sa\n");
-			if (check_ascending(*stack))
-				return ;
-			rra_rrb(stack);
-			printf("rra\n");
-		}
-		else
+	if (check_ascending(*stack))
+		return ;
+	if (stack->head->next->next->next->data > stack->head->next->next->data &&
+		stack->head->next->next->next->data < stack->head->next->data)
 		{
 			ra_rb(stack);
 			printf("ra\n");
 		}
-	}
+	else if (stack->head->next->next->data > stack->head->next->next->next->data &&
+		stack->head->next->next->data < stack->head->next->data)
+		{
+			sa_sb(stack);
+			printf("sa\n");
+			rra_rrb(stack);
+			printf("rra\n");
+		}
+}
+
+// 기능: 3개 노드 정렬(2개도 됨), 리턴: void
+void			sort_three_node_a(t_list *stack)
+{
+	if (check_ascending(*stack))
+		return ;
+	if (stack->head->next->next->next->data > stack->head->next->data &&
+		stack->head->next->next->next->data < stack->head->next->next->data)
+		{
+			sa_sb(stack);
+			printf("sa\n");
+			ra_rb(stack);
+			printf("ra\n");
+		}
+	else if (stack->head->next->data > stack->head->next->next->data &&
+		stack->head->next->data < stack->head->next->next->next->data)
+		{
+			sa_sb(stack);
+			printf("sa\n");
+		}
+	else if (stack->head->next->data > stack->head->next->next->next->data &&
+		stack->head->next->data < stack->head->next->next->data)
+		{
+			rra_rrb(stack);
+			printf("rra\n");
+		}
+	sort_three_node_a2(stack);	
 }
 
 // 기능: 스택a를 정렬, 리턴: void
 void			sort_stack_a(t_list *stack_a, t_list *stack_b, int *sorted_node, int len)
 {
 	int middle_data;
-
+	// TODO: 반복시키기
 	if (stack_a->count <= 3) // 스택a에 인수가 3개 이하로 남으면 정렬시킴
 	{
 		sort_three_node_a(stack_a);
@@ -94,6 +120,7 @@ void			algorithm(t_list *stack_a, t_list *stack_b, int *sorted_node)
 		return ;
 	if (stack_a->count > 3)
 	{
+		// TODO: 스택a가 저장된 후의 일 처리
 		sort_stack_a(stack_a, stack_b, sorted_node, stack_a->count); // 스택a를 인수가 3개 이하로 있을 때까지 반복 호출
 		
 	}
