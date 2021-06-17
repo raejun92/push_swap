@@ -40,7 +40,6 @@ int			ft_atoi(const char *str)
 
 void		error_msg()
 {
-	write(1, "Error", 5);
-	write(1, "\n", 1);
+	write(2, "Error\n", 6);
 	exit(0);
 }

@@ -1,20 +1,20 @@
 #include "ft_push_swap.h"
 
 // 기능: 배열의 중간 데이터를 출력, 리턴: 배열 중간의 데이터
-int				find_middle_data(int *sorted_node, int *len)
+int				find_middle_data(int *sorted_node, int len)
 {
 	int data;
 
-	if ((*len + 1) % 2 != 0 && *len % 2 != 0) // ex) 1 4 5가 들어오면 data는 4 출력, i = 1
-        *len = *len / 2 + 1;
+	if ((len + 1) % 2 != 0 && len % 2 != 0) // ex) 1 4 5가 들어오면 data는 4 출력, i = 1
+        len = len / 2 + 1;
     else
-        *len = *len / 2;
-	data = sorted_node[*len];
+        len = len / 2;
+	data = sorted_node[len];
 	return (data);
 }
 
 // 기능: 가운데 데이터를 기준으로 스택a, b의 값을 나눔, 리턴: void
-void			divide_half(t_list *stack_a, t_list *stack_b, int middle_data)
+void			divide_half_a(t_list *stack_a, t_list *stack_b, int middle_data)
 {
 	int	i;
 	int	count;
@@ -34,7 +34,7 @@ void			divide_half(t_list *stack_a, t_list *stack_b, int middle_data)
 }
 
 // 기능: 스택이 정렬되어 있는지 확인, 리턴: 정렬되어 있으면 1 아니면 0
-int			check_sorted_stack(t_list stack_a)
+int			check_ascending(t_list stack_a)
 {
 	int i;
 
@@ -49,16 +49,16 @@ int			check_sorted_stack(t_list stack_a)
 	return (1);
 }
 
-// 기능: 3개 노드 정렬, 리턴: void
+// 기능: 3개 노드 정렬(2개도 됨), 리턴: void
 void			sort_three_node_a(t_list *stack)
 {
-	while (!(check_sorted_stack(*stack)))
+	while (!(check_ascending(*stack)))
 	{
 		if (stack->head->next->data > stack->head->next->next->data)
 		{
 			sa_sb(stack);
 			printf("sa\n");
-			if (check_sorted_stack(*stack))
+			if (check_ascending(*stack))
 				return ;
 			rra_rrb(stack);
 			printf("rra\n");
@@ -71,29 +71,31 @@ void			sort_three_node_a(t_list *stack)
 	}
 }
 
-// 기능: 알고리즘 기능 반복, 리턴: void
-void			repeat_algorithm(t_list *stack_a, t_list *stack_b, int *sorted_node)
+// 기능: 스택a를 정렬, 리턴: void
+void			sort_stack_a(t_list *stack_a, t_list *stack_b, int *sorted_node, int len)
 {
-	if (stack_a->count <= 3)
-		sort_three_node(stack_a);
-	
+	int middle_data;
+
+	if (stack_a->count <= 3) // 스택a에 인수가 3개 이하로 남으면 정렬시킴
+	{
+		sort_three_node_a(stack_a);
+		return ;
+	} 
+	len = stack_a->count / 2;
+	middle_data = find_middle_data(sorted_node, len); // 배열의 가운데 데이터 추출
+	printf("middle %d\n", middle_data);
+	divide_half_a(stack_a, stack_b, middle_data); // 가운데 데이터를 기준으로 스택을 반으로 나눔
 }
 
 // 기능: 스택을 정렬하기 위한 알고리즘, 리턴: void
 void			algorithm(t_list *stack_a, t_list *stack_b, int *sorted_node)
 {
-	int middle_data;
-	int len;
-
-	middle_data = 0;
-	len = stack_a->count;
-	if (check_sorted_stack(*stack_a)) // 정렬되어 있으면 리턴
+	if (check_ascending(*stack_a) && (stack_b->count == 0)) // 스택a가 정렬되어 있고 스택b가 비어 있다면 리턴
 		return ;
 	if (stack_a->count > 3)
 	{
-		middle_data = find_middle_data(sorted_node, &len); // 배열의 가운데 데이터 추출
-		divide_half(stack_a, stack_b, middle_data); // 가운데 데이터를 기준으로 스택을 반으로 나눔
-		repeat_algorithm(stack_a, stack_b, sorted_node); // 스택a 정렬
+		sort_stack_a(stack_a, stack_b, sorted_node, stack_a->count); // 스택a를 인수가 3개 이하로 있을 때까지 반복 호출
+		
 	}
 	else
 		sort_three_node_a(stack_a);

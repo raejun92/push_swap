@@ -9,6 +9,7 @@ typedef struct	s_node
 {
 	struct		s_node *next;
 	struct		s_node *prev;
+	int			pivot;
 	int			data;
 }				t_node;
 

@@ -26,8 +26,8 @@ static void		sort_ascending(t_list stack_a, int *sorted_node)
 		j = 0;
 		while (j < size - 1 - i)
 		{
-			// if (sorted_node[j] == sorted_node[j + 1]) // 중복 검사
-			// 	error_msg();
+			if (sorted_node[j] == sorted_node[j + 1]) // 중복 검사
+				error_msg();
 			if (sorted_node[j] > sorted_node[j + 1])
 			{
 				tmp = sorted_node[j];
