@@ -10,6 +10,7 @@ typedef struct	s_node
 	struct		s_node *next;
 	struct		s_node *prev;
 	int			pivot;
+	int			check;
 	int			data;
 }				t_node;
 
