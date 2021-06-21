@@ -66,12 +66,14 @@ static void		sort_three_node_a2(t_list *stack)
 {
 	if (check_ascending(*stack))
 		return ;
+	// 3 1 2
 	if (stack->head->next->next->next->data > stack->head->next->next->data &&
 		stack->head->next->next->next->data < stack->head->next->data)
 		{
 			ra_rb(stack);
 			printf("ra\n");
 		}
+	// 3 2 1
 	else if (stack->head->next->next->data > stack->head->next->next->next->data &&
 		stack->head->next->next->data < stack->head->next->data)
 		{
@@ -90,6 +92,7 @@ void			sort_three_node_a(t_list *stack)
 {
 	if (check_ascending(*stack))
 		return ;
+	// 1 3 2
 	if (stack->head->next->next->next->data > stack->head->next->data &&
 		stack->head->next->next->next->data < stack->head->next->next->data)
 		{
@@ -98,12 +101,14 @@ void			sort_three_node_a(t_list *stack)
 			ra_rb(stack);
 			printf("ra\n");
 		}
+	// 2 1 3
 	else if (stack->head->next->data > stack->head->next->next->data &&
 		stack->head->next->data < stack->head->next->next->next->data)
 		{
 			sa_sb(stack);
 			printf("sa\n");
 		}
+	// 2 3 1
 	else if (stack->head->next->data > stack->head->next->next->next->data &&
 		stack->head->next->data < stack->head->next->next->data)
 		{
