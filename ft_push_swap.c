@@ -208,7 +208,6 @@ int				main(int argc, char **argv)
 		check_input(*argv, &stack_a);
 	make_sorted_array(stack_a, sorted_node);
 	algorithm(&stack_a, &stack_b, sorted_node);
-	
 	printf("\n");
 	view_node(&stack_a);
 	printf("\n");

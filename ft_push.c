@@ -5,11 +5,14 @@ void			pa(t_list *stack_a, t_list *stack_b)
 {
 	t_node *tmp_b;
 
-	if (!stack_b)
+	if (stack_b->count == 0)
+	{
+		printf("스택 b가 비어있음\n");
 		exit (0);	
+	}
 	tmp_b = stack_b->head->next; // b의 첫번째 노드 임시 저장
-	stack_b->head->next = stack_b->head->next->next; // b의 헤드가 두번째 노드를 가리켜 첫번째로 이동
-	stack_b->head->next->next->prev = stack_b->head; // b의 두번째 노드는 헤드를 가리켜 첫번째 노드가 됨
+	stack_b->head->next = tmp_b->next; // b의 헤드가 두번째 노드를 가리켜 첫번째로 이동
+	tmp_b->next->prev = stack_b->head; // b의 두번째 노드는 헤드를 가리켜 첫번째 노드가 됨
 	stack_b->count--;
 	tmp_b->prev = stack_a->head; // 새로운 노드를 헤드를 가리켜 첫번째 노드가 됨
 	tmp_b->next = stack_a->head->next; // 새로운 노드의 다음은 첫번째였던 노드를 가리킴
@@ -24,11 +27,14 @@ void			pb(t_list *stack_a, t_list *stack_b)
 {
 	t_node *tmp_a;
 
-	if (!stack_a)
+	if (stack_a->count == 0)
+	{
+		printf("스택 a가 비어있음\n");
 		exit (0);
+	}
 	tmp_a = stack_a->head->next;
-	stack_a->head->next = stack_a->head->next->next;
-	stack_a->head->next->next->prev = stack_a->head;
+	stack_a->head->next = tmp_a->next;
+	tmp_a->next->prev = stack_a->head;
 	stack_a->count--;
 	tmp_a->prev = stack_b->head;
 	tmp_a->next = stack_b->head->next;
