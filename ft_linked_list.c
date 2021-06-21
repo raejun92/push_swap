@@ -37,6 +37,20 @@ void			add_node(t_list *list, int data)
 	list->count++;
 }
 
+
+// 기능: head에 노드 추가, 리턴: void
+void			add_node2(t_list *list, int data)
+{
+	t_node *cur;
+
+	cur = new_node(data);
+	cur->prev = list->head;
+	cur->next = list->head->next;
+	list->head->next->prev = cur;
+	list->head->next = cur;
+	list->count++;
+}
+
 void			view_node(t_list *list)
 {
 	t_node *seek;
@@ -50,10 +64,13 @@ void			view_node(t_list *list)
 }
 
 // 기능: 노드 삭제, 리턴: void
-// void			remove_node(t_list *list, t_node *cur)
-// {
-// 	cur->prev->next = cur->next; // 이전 노드의 next를 cur의 다음 노드로 설정
-// 	cur->next->prev = cur->prev; // 다음 노드의 prev를 cur의 이전 노드로 설정
-// 	free(cur);
-// 	list->count--;
-// }
+void			remove_node(t_list *list)
+{
+	t_node *cur;
+
+	cur = list->head->next;
+	cur->prev->next = cur->next; // 이전 노드의 next를 cur의 다음 노드로 설정
+	cur->next->prev = cur->prev; // 다음 노드의 prev를 cur의 이전 노드로 설정
+	free(cur);
+	list->count--;
+}

@@ -3,42 +3,33 @@
 // 기능: b의 맨 위 1개를 a의 맨 위로 이동, 리턴: void
 void			pa(t_list *stack_a, t_list *stack_b)
 {
-	t_node *tmp_b;
-
+	int		tmp;
+	
 	if (stack_b->count == 0)
 	{
-		printf("스택 b가 비어있음\n");
-		exit (0);	
+		printf("b는 비어있음");
+		exit (0);
 	}
-	tmp_b = stack_b->head->next; // b의 첫번째 노드 임시 저장
-	stack_b->head->next = tmp_b->next; // b의 헤드가 두번째 노드를 가리켜 첫번째로 이동
-	tmp_b->next->prev = stack_b->head; // b의 두번째 노드는 헤드를 가리켜 첫번째 노드가 됨
-	stack_b->count--;
-	tmp_b->prev = stack_a->head; // 새로운 노드를 헤드를 가리켜 첫번째 노드가 됨
-	tmp_b->next = stack_a->head->next; // 새로운 노드의 다음은 첫번째였던 노드를 가리킴
-	stack_a->head->next = tmp_b; // 헤드는 새로운 노드를 가리킴
-	stack_a->head->next->prev = tmp_b; // 첫번째였던 노드는 새로운 노드를 가리킴
-	stack_a->count++;
+	tmp = stack_b->head->next->data;
+	remove_node(stack_b);
+	add_node2(stack_a, tmp);
 	printf("pa\n");
+	rst += 1;
 }
 
 // 기능: a의 맨 위 1개를 b의 맨 위로 이동, 리턴: void
 void			pb(t_list *stack_a, t_list *stack_b)
 {
-	t_node *tmp_a;
+	int		tmp;
 
 	if (stack_a->count == 0)
 	{
-		printf("스택 a가 비어있음\n");
+		printf("a는 비어있음");
 		exit (0);
 	}
-	tmp_a = stack_a->head->next;
-	stack_a->head->next = tmp_a->next;
-	tmp_a->next->prev = stack_a->head;
-	stack_a->count--;
-	tmp_a->prev = stack_b->head;
-	tmp_a->next = stack_b->head->next;
-	stack_b->head->next = tmp_a;
-	stack_b->head->next->prev = tmp_a;
-	stack_b->count++;
+	tmp = stack_a->head->next->data;
+	remove_node(stack_a);
+	add_node2(stack_b, tmp);
+	printf("pb\n");
+	rst += 1;
 }

@@ -42,7 +42,7 @@ void			divide_half_a(t_list *stack_a, t_list *stack_b, int middle_data)
 			i++;
 		}
 		else
-			ra_rb(stack_a);
+			ra(stack_a);
 	}
 }
 
@@ -60,74 +60,6 @@ int			check_ascending(t_list stack_a)
 		i++;
 	}
 	return (1);
-}
-
-static void		sort_three_node_a2(t_list *stack)
-{
-	if (check_ascending(*stack))
-		return ;
-	// 3 1 2
-	if (stack->head->next->next->next->data > stack->head->next->next->data &&
-		stack->head->next->next->next->data < stack->head->next->data)
-		{
-			ra_rb(stack);
-			printf("ra\n");
-		}
-	// 3 2 1
-	else if (stack->head->next->next->data > stack->head->next->next->next->data &&
-		stack->head->next->next->data < stack->head->next->data)
-		{
-			sa_sb(stack);
-			printf("sa\n");
-			rra_rrb(stack);
-			printf("rra\n");
-		}
-	stack->head->next->check = 1;
-	stack->head->next->next->check = 1;
-	stack->head->next->next->next->check = 1;
-}
-
-// 기능: 3개 노드 정렬, 리턴: void
-void			sort_three_node_a(t_list *stack)
-{
-	if (check_ascending(*stack))
-		return ;
-	// 1 3 2
-	if (stack->head->next->next->next->data > stack->head->next->data &&
-		stack->head->next->next->next->data < stack->head->next->next->data)
-		{
-			sa_sb(stack);
-			printf("sa\n");
-			ra_rb(stack);
-			printf("ra\n");
-		}
-	// 2 1 3
-	else if (stack->head->next->data > stack->head->next->next->data &&
-		stack->head->next->data < stack->head->next->next->next->data)
-		{
-			sa_sb(stack);
-			printf("sa\n");
-		}
-	// 2 3 1
-	else if (stack->head->next->data > stack->head->next->next->next->data &&
-		stack->head->next->data < stack->head->next->next->data)
-		{
-			rra_rrb(stack);
-			printf("rra\n");
-		}
-	sort_three_node_a2(stack);	
-}
-
-// 기능: 노드 2개 정렬, 리턴: void
-void			sort_two_node_a(t_list *stack)
-{
-	if (stack->head->next->data > stack->head->next->next->data)
-	{
-		sa_sb(stack);
-		printf("sa\n");
-	}
-	stack->head->next->check = 1;
-	stack->head->next->next->check = 1;
 }
 
 // 기능: 피봇 설정, 리턴: void
@@ -199,6 +131,7 @@ int				main(int argc, char **argv)
 	t_list	stack_b;
 	int		*sorted_node;
 
+	rst = 0;
 	if (argc < 3)
 		return (0);
 	init_list(&stack_a);
@@ -207,7 +140,12 @@ int				main(int argc, char **argv)
 	while (*(++argv))
 		check_input(*argv, &stack_a);
 	make_sorted_array(stack_a, sorted_node);
-	algorithm(&stack_a, &stack_b, sorted_node);
+	if (argc == 4)
+		sort_three_node_a(&stack_a);
+	else if (argc == 6)
+		sort_five_node_a(&stack_a, &stack_b, sorted_node);
+	else
+		algorithm(&stack_a, &stack_b, sorted_node);
 	printf("\n");
 	view_node(&stack_a);
 	printf("\n");
