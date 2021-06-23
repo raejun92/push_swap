@@ -14,7 +14,7 @@ void			ra(t_list *stack)
 	tmp->next = stack->tail; // 첫번째였던 노드는 테일을 가리킴
 	stack->tail->prev->next = tmp; // 테일을 가리키던 맨 끝 노드는 헤드가 가리키던 맨 앞 노드를 가리킴
 	stack->tail->prev = tmp; // 테일의 prev는 첫번째였던 노드를 가리킴
-	printf("ra\n");
+ 	// printf("ra\n");
 	rst += 1;
 }
 

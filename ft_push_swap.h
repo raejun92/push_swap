@@ -24,7 +24,8 @@ typedef struct	s_list
 int				rst;
 
 /* main.c */
-int			check_ascending(t_list stack_a);
+int				check_stack_a(t_list *stack_a);
+int				find_middle_data(int *sorted_node, int len);
 
 /* ft_utils.c */
 int				ft_atoi(const char *str);
@@ -66,6 +67,6 @@ void			make_sorted_array(t_list stack_a, int *sorted_node);
 /* ft_simple_sort.c */
 void			sort_two_node_a(t_list *stack);
 void			sort_three_node_a(t_list *stack);
-void			sort_five_node_a(t_list *stack_a, t_list *stack_b, int *sorted_node);
+void			sort_five_node_a(t_list *stack_a, t_list *stack_b, int *sorted_node, int index);
 
 #endif
