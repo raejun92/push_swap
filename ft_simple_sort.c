@@ -5,14 +5,8 @@ void			sort_two_node_a(t_list *stack)
 {
 	if (stack->head->next->data > stack->head->next->next->data)
 		sa(stack);
-	// stack->head->next->check = 1;
-	// stack->head->next->next->check = 1;
-}
-
-static void		sort_two_node_b(t_list *stack)
-{
-	if (stack->head->next->data < stack->head->next->next->data)
-		sb(stack);
+	stack->head->next->check = 1;
+	stack->head->next->next->check = 1;
 }
 
 static void		sort_three_node_a2(t_list *stack)
@@ -30,9 +24,9 @@ static void		sort_three_node_a2(t_list *stack)
 			sa(stack);
 			rra(stack);
 		}
-	// stack->head->next->check = 1;
-	// stack->head->next->next->check = 1;
-	// stack->head->next->next->next->check = 1;
+	stack->head->next->check = 1;
+	stack->head->next->next->check = 1;
+	stack->head->next->next->next->check = 1;
 }
 
 // 기능: 노드가 3개 이하 일 때 3개 노드 정렬, 리턴: void
@@ -60,6 +54,12 @@ void			sort_three_node_a(t_list *stack)
 	sort_three_node_a2(stack);	
 }
 
+static void		sort_two_node_b(t_list *stack)
+{
+	if (stack->head->next->data < stack->head->next->next->data)
+		sb(stack);
+}
+
 // 기능: 노드가 5개 있을 때 정렬, 리턴: void
 void			sort_five_node_a(t_list *stack_a, t_list *stack_b, int *sorted_node)
 {
@@ -82,4 +82,9 @@ void			sort_five_node_a(t_list *stack_a, t_list *stack_b, int *sorted_node)
 	sort_two_node_b(stack_b);
 	while (stack_b->count != 0)
 		pa(stack_a, stack_b);
+	stack_a->head->next->check = 1;
+	stack_a->head->next->next->check = 1;
+	stack_a->head->next->next->next->check = 1;
+	stack_a->head->next->next->next->next->check = 1;
+	stack_a->head->next->next->next->check = 1;
 }

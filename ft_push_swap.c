@@ -1,7 +1,7 @@
 #include "ft_push_swap.h"
 
 // 기능: 정렬된 노드 개수 확인, 리턴: 정렬된 노드 개수
-int				check_num(t_list *stack)
+int				 check_num(t_list *stack)
 {
 	t_node *tmp;
 	int check_num;
@@ -76,30 +76,40 @@ void			set_pivot(t_list *stack_a, int middle_data)
 	}
 }
 
-// 기능: 스택a를 정렬, 리턴: void
+static void		first_sort_a(t_list *stack_a, t_list *stack_b, int *sorted_node)
+{
+	if (stack_a->count == 3) // 스택a에 초기 3개 노드 정렬
+		sort_three_node_a(stack_a);
+	else if (stack_a->count == 2) // 스택a에 초기 2개 노드 정렬
+		sort_two_node_a(stack_a);
+	else if (stack_a->count == 5)  // 스택a에 초기 5개 노드 정렬
+		sort_five_node_a(stack_a, stack_b, sorted_node);
+}
+
+// 기능: 스택a가 모두 정렬이 될 때까지 반복 수행, 리턴: void
 void			sort_stack_a(t_list *stack_a, t_list *stack_b, int *sorted_node, int len)
 {
 	int middle_data;
 	// TODO: 반복시키기
-	if (stack_a->count - check_num(stack_a) == 3) // 스택a에 정렬 안 된 노드가 3개이면 3개 정렬
-	{
-		sort_three_node_a(stack_a);
-		return ;
-	}
-	else if (stack_a->count - check_num(stack_a) == 2) // 스택a에 정렬 안 된 노드가 2개이면  2개 정렬
-	{
-		sort_two_node_a(stack_a);
-		return ;
-	}
+	if (stack_a->count <= 3 || stack_a->count == 5)
+		first_sort_a(stack_a, stack_b, sorted_node); // 스택a의 초기 노드 2,3,5개 일 때 정렬
 	else
 	{
-		len = stack_a->count - check_num(stack_a) / 2;
+		len += stack_a->count / 2;
 		middle_data = find_middle_data(sorted_node, len); // 배열의 가운데 데이터 추출
 		set_pivot(stack_a, middle_data); // 중간값을 피봇이라고 표시
 		divide_half_a(stack_a, stack_b, middle_data); // 가운데 데이터를 기준으로 스택을 반으로 나눔
 		sort_stack_a(stack_a, stack_b, sorted_node, len); // 노드가 2 또는 3개가 될 때까지 반복
 	}
+	if (check_ascending(*stack_a))
+		return ;
 }
+
+// 기능: 스택b에서 피봇별로 나뉜값을 스택a로 보냄, 리턴: void
+// void			sort_stack_b(t_list *stack_a, t_list *stack_b, int *sorted_node)
+// {
+
+// }
 
 // 기능: 스택을 정렬하기 위한 알고리즘, 리턴: void
 void			algorithm(t_list *stack_a, t_list *stack_b, int *sorted_node)
@@ -112,9 +122,12 @@ void			algorithm(t_list *stack_a, t_list *stack_b, int *sorted_node)
 		return ;
 	else if (!check_ascending(*stack_a))
 	{
-		sort_stack_a(stack_a, stack_b, sorted_node, stack_a->count);
+		sort_stack_a(stack_a, stack_b, sorted_node, 0);
 	}
-
+	// else if (stack_b->count != 0)
+	// {
+	// 	sort_stack_b(stack_a, stack_b, sorted_node);
+	// }
 	// if (stack_a->count - stack_a->sorted_num > 3) // 스택a의 개수에서 정렬된 개수를 뺴서 정렬이 안 된 개수를 추출
 	// {
 	// 	// TODO: 스택a가 저장된 후의 일 처리
@@ -123,6 +136,7 @@ void			algorithm(t_list *stack_a, t_list *stack_b, int *sorted_node)
 	// }
 	// else
 	// 	sort_three_node_a(stack_a);
+	algorithm(stack_a, stack_b, sorted_node); // 탈출조건이 도달할 때 까지 반복
 }
 
 int				main(int argc, char **argv)
@@ -140,26 +154,11 @@ int				main(int argc, char **argv)
 	while (*(++argv))
 		check_input(*argv, &stack_a);
 	make_sorted_array(stack_a, sorted_node);
-	if (argc == 4)
-		sort_three_node_a(&stack_a);
-	else if (argc == 6)
-		sort_five_node_a(&stack_a, &stack_b, sorted_node);
-	else
-		algorithm(&stack_a, &stack_b, sorted_node);
+	algorithm(&stack_a, &stack_b, sorted_node);
 	printf("\n");
 	view_node(&stack_a);
 	printf("\n");
 	view_node(&stack_b);
-	// printf("\n");
-	// add_node(&stack_b, 10);
-	// add_node(&stack_b, 5);
-	// add_node(&stack_b, 29);
-	// view_node(&stack_b);
-	// printf("\n");
-	// rrr(&stack_a, &stack_b);
-	// view_node(&stack_a);
-	// printf("\n");
-	// view_node(&stack_b);
 	free(sorted_node);
 	return (0);
 }
