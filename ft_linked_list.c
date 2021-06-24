@@ -9,6 +9,7 @@ t_node			*new_node(int data)
 	node->data = data;
 	node->pivot = 0;
 	node->check = 0;
+	node->rank = 0;
 	node->next = NULL;
 	node->prev = NULL;
 	return node;

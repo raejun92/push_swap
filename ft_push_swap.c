@@ -110,11 +110,7 @@ static void		first_sort_a(t_list *stack_a, t_list *stack_b, int *sorted_node, in
 	else if (stack_a->count == 2) // 스택a에 초기 2개 노드 정렬
 		sort_two_node_a(stack_a);
 	else if (stack_a->count == 5)  // 스택a에 초기 5개 노드 정렬
-	{
-		if (!(index))
-			index = 0;
 		sort_five_node_a(stack_a, stack_b, sorted_node, index);
-	}
 }
 
 // 기능: 스택a가 모두 정렬이 될 때까지 반복 수행, 리턴: void
@@ -170,6 +166,22 @@ void			algorithm(t_list *stack_a, t_list *stack_b, int *sorted_node)
 	// algorithm(stack_a, stack_b, sorted_node); // 탈출조건이 도달할 때 까지 반복
 }
 
+// 기능: 스택a의 노드를 랭킹 등록, 리턴: void
+void			enroll_rank(t_list *stack_a, int *sorted_node)
+{
+	t_node	*tmp;
+	int		i;
+
+	i = 0;
+	while (stack_a->count > i)
+	{
+		tmp = stack_a->head->next;
+		while (tmp->data != sorted_node[i])
+			tmp = tmp->next;
+		tmp->rank = i + 1;
+		i++;
+	}
+}
 int				main(int argc, char **argv)
 {
 	t_list	stack_a;
@@ -185,11 +197,20 @@ int				main(int argc, char **argv)
 	while (*(++argv))
 		check_input(*argv, &stack_a);
 	make_sorted_array(stack_a, sorted_node);
-	algorithm(&stack_a, &stack_b, sorted_node);
-	printf("\n");
-	view_node(&stack_a);
-	printf("\n");
-	view_node(&stack_b);
+	enroll_rank(&stack_a, sorted_node);
+	// algorithm(&stack_a, &stack_b, sorted_node);
+	int i = 0;
+	t_node *tmp;
+	tmp = stack_a.head->next;
+	while (tmp != stack_a.tail)
+	{
+		printf("data %d, rank %d\n", tmp->data, tmp->rank);
+		tmp = tmp->next;
+	}
+	// printf("\n");
+	// view_node(&stack_a);
+	// printf("\n");
+	// view_node(&stack_b);
 	free(sorted_node);
 	return (0);
 }

@@ -11,6 +11,7 @@ typedef struct	s_node
 	struct		s_node *prev;
 	int			pivot;
 	int			check;
+	int			rank;
 	int			data;
 }				t_node;
 
