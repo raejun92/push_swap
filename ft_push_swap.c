@@ -87,14 +87,14 @@ int				check_stack_a(t_list *stack_a)
 
 
 // 기능: 피봇 설정, 리턴: void
-void			set_pivot(t_list *stack_a, int middle_data)
+void			set_pivot(t_list *stack_a, int pivot_data)
 {
 	t_node *pivot;
 
 	pivot = stack_a->head->next;
 	while (pivot != stack_a->tail)
 	{
-		if (pivot->data == middle_data)
+		if (pivot->data == pivot_data)
 		{
 			pivot->pivot = 1;
 			printf("pivot %d\n", pivot->data);
@@ -114,22 +114,27 @@ static void		first_sort_a(t_list *stack_a, t_list *stack_b, int *sorted_node, in
 }
 
 // 기능: 스택a가 모두 정렬이 될 때까지 반복 수행, 리턴: void
-void			sort_stack_a(t_list *stack_a, t_list *stack_b, int *sorted_node, int index)
+void			sort_stack_a(t_list *stack_a, t_list *stack_b, int start, int end)
 {
-	int middle_data;
-	// TODO: 반복시키기
-	if (stack_a->count <= 3 || stack_a->count == 5)
-		first_sort_a(stack_a, stack_b, sorted_node, index); // 스택a의 초기 노드 2,3,5개 일 때 정렬
-	else
-	{
-		index = stack_a->count / 2;
-		middle_data = find_middle_data(sorted_node, index); // 배열의 가운데 데이터 추출
-		set_pivot(stack_a, middle_data); // 중간값을 피봇으로 표시
-		divide_half_a(stack_a, stack_b, middle_data); // 가운데 데이터를 기준으로 스택을 반으로 나눔
-	}
-	if (check_stack_a(stack_a))
+	int		pivot;
+
+	if (start > end)
 		return ;
-	sort_stack_a(stack_a, stack_b, sorted_node, index);
+	pivot = (start + end) / 2;
+	set_pivot(stack_a, pivot);
+	while (1) // 노드 <= pivot인 값이 하나라도 남아 있는지 확인
+	{
+		if (stack_a->head->next->data < pivot)
+			pb(stack_a, stack_b);
+		else if (stack_a->head->next->data == pivot)
+		{
+			pb(stack_a, stack_b);
+			// 노드 <= pivot인 값이 하나라도 남아 있으면 rb
+		}
+		else
+			ra(stack_a);
+	}
+
 }
 
 // 기능: 스택b에서 피봇별로 나뉜값을 스택a로 보냄, 리턴: void
@@ -148,9 +153,7 @@ void			algorithm(t_list *stack_a, t_list *stack_b, int *sorted_node)
 	if (check_stack_a(stack_a) && (stack_b->count == 0)) // 스택a가 정렬되어 있고 스택b가 비어 있다면 리턴
 		return ;
 	else if (!check_stack_a(stack_a))
-	{
 		sort_stack_a(stack_a, stack_b, sorted_node, 0);
-	}
 	// else if (stack_b->count != 0)
 	// {
 	// 	sort_stack_b(stack_a, stack_b, sorted_node);
@@ -164,6 +167,14 @@ void			algorithm(t_list *stack_a, t_list *stack_b, int *sorted_node)
 	// else
 	// 	sort_three_node_a(stack_a);
 	// algorithm(stack_a, stack_b, sorted_node); // 탈출조건이 도달할 때 까지 반복
+}
+
+void			set_algorithm(t_list *stack_a, t_list *stack_b, int *sorted_node)
+{
+	if (check_stack_a(stack_a) && (stack_b->count == 0))
+		return ;
+	else if (!check_stack_a(stack_a))
+		sort_stack_a(stack_a, stack_b, sorted_node[0], sorted_node[stack_a->count - 1]);
 }
 
 // 기능: 스택a의 노드를 랭킹 등록, 리턴: void
@@ -198,15 +209,7 @@ int				main(int argc, char **argv)
 		check_input(*argv, &stack_a);
 	make_sorted_array(stack_a, sorted_node);
 	enroll_rank(&stack_a, sorted_node);
-	// algorithm(&stack_a, &stack_b, sorted_node);
-	int i = 0;
-	t_node *tmp;
-	tmp = stack_a.head->next;
-	while (tmp != stack_a.tail)
-	{
-		printf("data %d, rank %d\n", tmp->data, tmp->rank);
-		tmp = tmp->next;
-	}
+	algorithm(&stack_a, &stack_b, sorted_node);
 	// printf("\n");
 	// view_node(&stack_a);
 	// printf("\n");
