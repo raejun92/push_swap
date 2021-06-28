@@ -68,6 +68,6 @@ void			make_sorted_array(t_list stack_a, int *sorted_node);
 /* ft_simple_sort.c */
 void			sort_two_node_a(t_list *stack);
 void			sort_three_node_a(t_list *stack);
-void			sort_five_node_a(t_list *stack_a, t_list *stack_b, int *sorted_node, int index);
+void			sort_five_node_a(t_list *stack_a, t_list *stack_b, int *sorted_node);
 
 #endif

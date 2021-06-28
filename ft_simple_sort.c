@@ -61,14 +61,13 @@ static void		sort_two_node_b(t_list *stack)
 }
 
 // 기능: 노드가 5개 있을 때 정렬, 리턴: void
-void			sort_five_node_a(t_list *stack_a, t_list *stack_b, int *sorted_node, int index)
+void			sort_five_node_a(t_list *stack_a, t_list *stack_b, int *sorted_node)
 {
 	int i;
 	int mid;
 	
 	i = 0;
-	// mid = sorted_node[stack_a->count / 2];
-	mid = find_middle_data(sorted_node, index); // 배열의 가운데 데이터 추출
+	mid = sorted_node[stack_a->count / 2];
 	printf("mid: %d\n", mid);
 	while (i < 2)
 	{

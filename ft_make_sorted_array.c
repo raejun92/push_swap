@@ -3,24 +3,25 @@
 // 기능: 노드의 데이터를 배열에 넣음, 리턴: void
 static void		input_array(t_list stack_a, int *sorted_node)
 {
-	while (stack_a.head != stack_a.tail->prev)
+	t_node *tmp;
+
+	tmp = stack_a.head->next;
+	while (tmp != stack_a.tail)
 	{
-		*sorted_node = stack_a.head->next->data;
-		stack_a.head = stack_a.head->next;
+		*sorted_node = tmp->data;
+		tmp = tmp->next;
 		sorted_node++;
 	}
 }
 
 // 기능: 노드를 배열로 오름차순 정렬, 리턴: void
-static void		sort_ascending(t_list stack_a, int *sorted_node)
+static void		sort_ascending(int *sorted_node, int size)
 {
 	int i;
 	int j;
-	int	size;
 	int	tmp;
 
 	i = 0;
-	size = stack_a.count;
 	while (i < size - 1)
 	{
 		j = 0;
@@ -44,5 +45,5 @@ static void		sort_ascending(t_list stack_a, int *sorted_node)
 void			make_sorted_array(t_list stack_a, int *sorted_node)
 {
 	input_array(stack_a, sorted_node); // 노드 데이터를 배열에 넣기
-	sort_ascending(stack_a, sorted_node); // 오름차순 정렬 및 중복 확인
+	sort_ascending(sorted_node, stack_a.count); // 오름차순 정렬 및 중복 확인
 }

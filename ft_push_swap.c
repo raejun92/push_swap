@@ -95,22 +95,34 @@ void			set_pivot(t_list *stack_a, int pivot_data)
 	while (pivot != stack_a->tail)
 	{
 		if (pivot->data == pivot_data)
-		{
 			pivot->pivot = 1;
-			printf("pivot %d\n", pivot->data);
-		}
 		pivot = pivot->next;
 	}
 }
 
-static void		first_sort_a(t_list *stack_a, t_list *stack_b, int *sorted_node, int index)
+static void		first_sort_a(t_list *stack_a, t_list *stack_b, int *sorted_node)
 {
 	if (stack_a->count == 3) // 스택a에 초기 3개 노드 정렬
 		sort_three_node_a(stack_a);
 	else if (stack_a->count == 2) // 스택a에 초기 2개 노드 정렬
 		sort_two_node_a(stack_a);
 	else if (stack_a->count == 5)  // 스택a에 초기 5개 노드 정렬
-		sort_five_node_a(stack_a, stack_b, sorted_node, index);
+		sort_five_node_a(stack_a, stack_b, sorted_node);
+}
+
+// 기능: pivot보다 작은 값이 남아 있는지 확인, 리턴: 남아 있다면 1 아니면 0
+int				 check_remain_pivot(t_list stack, int pivot)
+{
+	t_node *tmp;
+
+	tmp = stack.head->next;
+	while(tmp != stack.tail)
+	{
+		if (tmp->data <= pivot)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
 }
 
 // 기능: 스택a가 모두 정렬이 될 때까지 반복 수행, 리턴: void
@@ -119,22 +131,28 @@ void			sort_stack_a(t_list *stack_a, t_list *stack_b, int start, int end)
 	int		pivot;
 
 	if (start > end)
-		return ;
+		return ; 
 	pivot = (start + end) / 2;
-	set_pivot(stack_a, pivot);
-	while (1) // 노드 <= pivot인 값이 하나라도 남아 있는지 확인
+	set_pivot(stack_a, pivot); // 스택에 피봇인 노드 지정
+	while (check_remain_pivot(*stack_a, pivot)) // 노드 <= pivot인 값이 하나라도 남아 있는지 확인
 	{
 		if (stack_a->head->next->data < pivot)
-			pb(stack_a, stack_b);
-		else if (stack_a->head->next->data == pivot)
 		{
 			pb(stack_a, stack_b);
-			// 노드 <= pivot인 값이 하나라도 남아 있으면 rb
+		}
+		else if (stack_a->head->next->data == pivot)
+		{
+			// printf("스택a데이터: %d\n", stack_a->head->next->data);
+			pb(stack_a, stack_b);
+			if (check_remain_pivot(*stack_a, pivot)) // a에서 b로 넘길 노드가 남아 있다면 피봇은 스택 맨 아래에 잠시 두어 나머지 노드가 넘어오면 다시 맨 위로 올림
+				rb(stack_b);
 		}
 		else
 			ra(stack_a);
 	}
-
+	if (stack_a->head->next->data != pivot)
+		rra(stack_a); // a에서 b로 넘길 노드가 남아 있다면 피봇은 스택 맨 아래에 잠시 두어 나머지 노드가 넘어오면 다시 맨 위로 올림
+	sort_stack_a(stack_a, stack_b, pivot + 1, end);
 }
 
 // 기능: 스택b에서 피봇별로 나뉜값을 스택a로 보냄, 리턴: void
@@ -143,17 +161,47 @@ void			sort_stack_a(t_list *stack_a, t_list *stack_b, int start, int end)
 
 // }
 
+// 기능: 최솟값의 노드를 찾음, 리턴: 최솟값 노드
+static int		find_min_data(t_list stack)
+{
+	int		min;
+	t_node	*tmp;
+
+	tmp = stack.head->next;
+	min = stack.head->next->data;
+	while (tmp != stack.tail)
+	{
+		if (min > tmp->data)
+			min = tmp->data;
+		tmp = tmp->next;
+	}
+	return (min);
+}
+
+static int		find_min_pivot(t_list stack)
+{
+	int		p_min;
+	t_node	*tmp;
+
+	tmp = stack.head->next;
+	p_min = 2147483647;
+	while (tmp != stack.tail)
+	{
+		if (tmp->pivot && p_min > tmp->pivot)
+			p_min = tmp->pivot;
+		tmp = tmp->next;
+	}
+	printf("p_min %d\n", p_min);
+	return (p_min);
+}
+
 // 기능: 스택을 정렬하기 위한 알고리즘, 리턴: void
 void			algorithm(t_list *stack_a, t_list *stack_b, int *sorted_node)
 {
-	/* MEMO: 1. 스택a가 정렬되어 있고 스택b에 값이 아무것도 없다면 종결
-			 2. 스택a를 정렬 시킴
-			 3. 스택b를 정렬 시킴
-	*/
 	if (check_stack_a(stack_a) && (stack_b->count == 0)) // 스택a가 정렬되어 있고 스택b가 비어 있다면 리턴
 		return ;
 	else if (!check_stack_a(stack_a))
-		sort_stack_a(stack_a, stack_b, sorted_node, 0);
+		sort_stack_a(stack_a, stack_b, find_min_data(*stack_a), find_min_pivot(*stack_a));
 	// else if (stack_b->count != 0)
 	// {
 	// 	sort_stack_b(stack_a, stack_b, sorted_node);
@@ -169,12 +217,13 @@ void			algorithm(t_list *stack_a, t_list *stack_b, int *sorted_node)
 	// algorithm(stack_a, stack_b, sorted_node); // 탈출조건이 도달할 때 까지 반복
 }
 
+// 기능: 스택a에서 처음 정렬이 이루어지기까지 수행, 리턴: void
 void			set_algorithm(t_list *stack_a, t_list *stack_b, int *sorted_node)
 {
-	if (check_stack_a(stack_a) && (stack_b->count == 0))
+	if (check_stack_a(stack_a))
 		return ;
 	else if (!check_stack_a(stack_a))
-		sort_stack_a(stack_a, stack_b, sorted_node[0], sorted_node[stack_a->count - 1]);
+		sort_stack_a(stack_a, stack_b, sorted_node[0], sorted_node[stack_a->count - 1]); // 처음에 start는 제일 작은 노드, end는 제일 큰 노드
 }
 
 // 기능: 스택a의 노드를 랭킹 등록, 리턴: void
@@ -209,11 +258,15 @@ int				main(int argc, char **argv)
 		check_input(*argv, &stack_a);
 	make_sorted_array(stack_a, sorted_node);
 	enroll_rank(&stack_a, sorted_node);
-	algorithm(&stack_a, &stack_b, sorted_node);
-	// printf("\n");
-	// view_node(&stack_a);
-	// printf("\n");
-	// view_node(&stack_b);
+	if (argc <= 4 || argc == 6)
+		first_sort_a(&stack_a, &stack_b, sorted_node);
+	set_algorithm(&stack_a, &stack_b, sorted_node);
+	// // algorithm(&stack_a, &stack_b, sorted_node);
+	printf("\n A \n");
+	view_node(&stack_a);
+	printf("\n");
+	printf("\n B \n");
+	view_node(&stack_b);
 	free(sorted_node);
 	return (0);
 }
