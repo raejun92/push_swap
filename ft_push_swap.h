@@ -35,7 +35,7 @@ void			error_msg();
 t_node			*new_node(int data);
 void			init_list(t_list *list);
 void			add_node(t_list *list, int data);
-void			add_node2(t_list *list, int data);
+// void			add_node2(t_list *list, t_node *data);
 void			view_node(t_list *list);
 void			remove_node(t_list *list);
 

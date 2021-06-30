@@ -17,38 +17,20 @@ int				 check_num(t_list *stack)
 	return (check_num);
 }
 
-// 기능: 가운데 데이터를 기준으로 스택a, b의 값을 나눔, 리턴: void
-void			divide_half_a(t_list *stack_a, t_list *stack_b, int middle_data)
-{
-	int	i;
-	int len;
- 
-	i = 0;
-	len = (stack_a->count - check_num(stack_a)) / 2;
-	while (len > i)
-	{
-		// printf("len %d, i %d\n", len, i);
-		if (stack_a->head->next->data <= middle_data)
-		{
-			pb(stack_a, stack_b);
-			i++;
-		}
-		else
-			ra(stack_a);
-	}
-}
-
 // 기능: 피봇 설정, 리턴: void
-void			set_pivot(t_list *stack_a, int pivot_data)
+void			set_pivot(t_list *stack_a, int pivot)
 {
-	t_node *pivot;
+	t_node *tmp;
 
-	pivot = stack_a->head->next;
-	while (pivot != stack_a->tail)
+	tmp = stack_a->head->next;
+	while (tmp != stack_a->tail)
 	{
-		if (pivot->data == pivot_data)
-			pivot->pivot = 1;
-		pivot = pivot->next;
+		if (tmp->rank == pivot)
+		{
+			tmp->pivot = 1;
+			return ;
+		}
+		tmp = tmp->next;
 	}
 }
 
@@ -73,7 +55,7 @@ static int		find_min_data(t_list stack)
 	while (tmp != stack.tail)
 	{
 		if (min > tmp->data)
-			min = tmp->data;
+			min = tmp->rank;
 		tmp = tmp->next;
 	}
 	return (min);
@@ -88,12 +70,96 @@ static int		find_min_pivot(t_list stack)
 	p_min = 2147483647;
 	while (tmp != stack.tail)
 	{
-		if (tmp->pivot && p_min > tmp->pivot)
-			p_min = tmp->pivot;
+		if (tmp->pivot && p_min > tmp->data)
+			p_min = tmp->rank;
 		tmp = tmp->next;
 	}
-	printf("p_min %d\n", p_min);
 	return (p_min);
+}
+
+// 기능: pivot보다 큰 값이 남아 있는지 확인, 리턴: 남아 있다면 1 아니면 0
+static int		check_remain_pivot(t_list stack, int pivot)
+{
+	t_node *tmp;
+
+	tmp = stack.head->next;
+	while(tmp != stack.tail)
+	{
+		if (tmp->rank >= pivot)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+// 기능: 스택b가 모두 정렬 될 때까지 반복 수행, 리턴: void
+void			sort_stack_b(t_list *stack_a, t_list *stack_b, int start, int end)
+{
+	int pivot;
+	int cnt;
+
+	cnt = 0;
+	if (start > end)
+		return ;
+	pivot = (start + end) / 2;
+	set_pivot(stack_b, pivot);
+	while (check_remain_pivot(*stack_b, pivot))
+	{
+		if (stack_b->head->next->rank > pivot)
+			pa(stack_a, stack_b);
+		else if (stack_b->head->next->rank == pivot)
+		{
+			pa(stack_a, stack_b);
+			if (check_remain_pivot(*stack_b, pivot))
+				ra(stack_a);
+		}
+		else
+		{
+			cnt++;
+			rb(stack_b);
+		}
+	}
+	if (stack_a->head->next->rank != pivot)
+		rra(stack_a);
+	while (cnt && cnt--)
+		rrb(stack_b);
+	sort_stack_b(stack_a, stack_b, start, pivot - 1);
+}
+
+// 기능: 노드 중 가장 큰 수를 출력, 리턴: int(노드중 가장 큰 수)
+static int		find_max_data(t_list stack)
+{
+	int		max;
+	t_node	*tmp;
+
+	tmp = stack.head->next;
+	max = stack.head->next->data;
+	while (tmp != stack.tail)
+	{
+		if (max < tmp->data)
+			max = tmp->rank;
+		tmp = tmp->next;
+	}
+	return (max);
+}
+
+// 기능: 스택의 피봇중 가장 큰 랭킹을 찾음, 리턴: 가장 큰 랭킹 값
+static int		find_max_pivot(t_list stack)
+{
+	int		p_max;
+	t_node	*tmp;
+
+	tmp = stack.head->next;
+	p_max = 0;
+	while (tmp != stack.tail)
+	{
+		if (tmp->pivot && p_max < tmp->rank)
+			p_max = tmp->rank;
+		tmp = tmp->next;
+	}
+	if (p_max == 0)
+		p_max = find_min_data(stack);
+	return (p_max);
 }
 
 // 기능: 스택을 정렬하기 위한 알고리즘, 리턴: void
@@ -103,8 +169,11 @@ void			algorithm(t_list *stack_a, t_list *stack_b)
 		return ;
 	else if (!check_stack_a(stack_a))
 		sort_stack_a(stack_a, stack_b, find_min_data(*stack_a), find_min_pivot(*stack_a));
-	// else if
-	// 	sort_stack_b(stack_a, stack_b, find_max_pivot(*stack_b), find_max_data(*stack_b));
+	else if (check_stack_a(stack_a))
+	{
+		printf("start: %d, end: %d\n", find_max_pivot(*stack_b), find_max_data(*stack_b));
+		sort_stack_b(stack_a, stack_b, find_max_pivot(*stack_b), find_max_data(*stack_b));
+	}
 	// algorithm(stack_a, stack_b);
 }
 
@@ -114,7 +183,7 @@ void			set_algorithm(t_list *stack_a, t_list *stack_b, int *sorted_node)
 	if (check_stack_a(stack_a))
 		return ;
 	else if (!check_stack_a(stack_a))
-		sort_stack_a(stack_a, stack_b, sorted_node[0], sorted_node[stack_a->count - 1]); // 처음에 start는 제일 작은 노드, end는 제일 큰 노드
+		sort_stack_a(stack_a, stack_b, 1, stack_a->count); // 처음에 start는 제일 작은 노드, end는 제일 큰 노드
 }
 
 // 기능: 스택a의 노드를 랭킹 등록, 리턴: void
@@ -152,12 +221,16 @@ int				main(int argc, char **argv)
 	if (argc <= 4 || argc == 6)
 		first_sort_a(&stack_a, &stack_b, sorted_node);
 	set_algorithm(&stack_a, &stack_b, sorted_node);
-	// // algorithm(&stack_a, &stack_b, sorted_node);
+	algorithm(&stack_a, &stack_b);
+	// algorithm(&stack_a, &stack_b);
+	
+	
 	printf("\n A \n");
 	view_node(&stack_a);
 	printf("\n");
 	printf("\n B \n");
 	view_node(&stack_b);
 	free(sorted_node);
+	printf("rst = %d\n", rst);
 	return (0);
 }

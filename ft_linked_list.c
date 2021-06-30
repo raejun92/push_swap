@@ -40,17 +40,14 @@ void			add_node(t_list *list, int data)
 
 
 // 기능: head에 노드 추가, 리턴: void
-void			add_node2(t_list *list, int data)
-{
-	t_node *cur;
-
-	cur = new_node(data);
-	cur->prev = list->head;
-	cur->next = list->head->next;
-	list->head->next->prev = cur;
-	list->head->next = cur;
-	list->count++;
-}
+// void			add_node2(t_list *list, t_node *cur)
+// {
+// 	cur->prev = list->head;
+// 	cur->next = list->head->next;
+// 	list->head->next->prev = cur;
+// 	list->head->next = cur;
+// 	list->count++;
+// }
 
 void			view_node(t_list *list)
 {
