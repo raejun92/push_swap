@@ -1,16 +1,15 @@
-#ifndef PUSH_SWAP_H
+#ifndef	PUSH_SWAP_H
 # define PUSH_SWAP_H
 
 # include <stdlib.h>
 # include <unistd.h>
-#include <stdio.h>
+# include <stdio.h> // 나중에 지움
 
 typedef struct	s_node
 {
-	struct		s_node *next;
-	struct		s_node *prev;
+	struct		s_node	*next;
+	struct		s_node	*prev;
 	int			pivot;
-	int			check;
 	int			rank;
 	int			data;
 }				t_node;
@@ -25,7 +24,8 @@ typedef struct	s_list
 int				rst;
 
 /* main.c */
-void			set_pivot(t_list *stack_a, int pivot_data);
+int		check_ascending(t_list stack_a);
+void			enroll_rank(t_list *stack_a, int *sorted_node);
 
 /* ft_utils.c */
 int				ft_atoi(const char *str);
@@ -35,7 +35,6 @@ void			error_msg();
 t_node			*new_node(int data);
 void			init_list(t_list *list);
 void			add_node(t_list *list, int data);
-// void			add_node2(t_list *list, t_node *data);
 void			view_node(t_list *list);
 void			remove_node(t_list *list);
 
@@ -68,9 +67,5 @@ void			make_sorted_array(t_list stack_a, int *sorted_node);
 void			sort_two_node_a(t_list *stack);
 void			sort_three_node_a(t_list *stack);
 void			sort_five_node_a(t_list *stack_a, t_list *stack_b, int *sorted_node);
-
-/* ft_stack_a.c */
-int				check_stack_a(t_list *stack_a);
-void			sort_stack_a(t_list *stack_a, t_list *stack_b, int start, int end);
 
 #endif

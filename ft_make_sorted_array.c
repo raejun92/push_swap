@@ -14,7 +14,7 @@ static void		input_array(t_list stack_a, int *sorted_node)
 	}
 }
 
-// 기능: 노드를 배열로 오름차순 정렬, 리턴: void
+// 기능: 노드를 배열로 오름차순 정렬 및 중복 검사, 리턴: void
 static void		sort_ascending(int *sorted_node, int size)
 {
 	int i;
@@ -41,7 +41,7 @@ static void		sort_ascending(int *sorted_node, int size)
 	}
 }
 
-// 기능: 노드를 미리 정렬시켜 놓은 배열을 만들고 추가 기능 예정, 리턴: void
+// 기능: 노드를 미리 정렬시켜 놓은 배열을 만들어 이용할 예정, 리턴: void
 void			make_sorted_array(t_list stack_a, int *sorted_node)
 {
 	input_array(stack_a, sorted_node); // 노드 데이터를 배열에 넣기

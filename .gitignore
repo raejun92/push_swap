@@ -3,6 +3,7 @@
 /libft
 /.vscode
 /master
+/old
 
 test
 test.c
