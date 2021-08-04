@@ -26,6 +26,9 @@ int				rst;
 
 /* main.c */
 void			enroll_rank(t_list *stack_a, int *sorted_node);
+void			sort_first_a(t_list *stack_a, t_list *stack_b, int *sorted_node);
+void			set_pivot(t_list *stack_a, int pivot);
+int				check_less_than_pivot(t_list stack, int pivot);
 
 /* ft_utils.c */
 int				ft_atoi(const char *str);
@@ -71,5 +74,10 @@ void			make_sorted_array(t_list stack_a, int *sorted_node);
 void			sort_two_node_a(t_list *stack);
 void			sort_three_node_a(t_list *stack);
 void			sort_five_node_a(t_list *stack_a, t_list *stack_b, int *sorted_node);
+
+/* ft_stack_a.c */
+int				stack_a_max(t_list stack);
+int				stack_a_min(t_list stack);
+void			sort_stack_a(t_list *stack_a, t_list *stack_b, int start, int end);
 
 #endif
