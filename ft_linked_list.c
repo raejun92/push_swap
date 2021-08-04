@@ -9,6 +9,7 @@ t_node			*new_node(int data)
 	node->data = data;
 	node->pivot = 0;
 	node->rank = 0;
+	node->sort = 0;
 	node->next = NULL;
 	node->prev = NULL;
 	return node;
@@ -44,7 +45,7 @@ void			view_node(t_list *list)
 	seek = list->head->next;
 	while (seek != list->tail)
 	{
-		printf("%d\n", seek->data);
+		printf("%d\n", seek->rank);
 		seek = seek->next;
 	}
 }

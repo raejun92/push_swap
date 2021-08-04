@@ -63,7 +63,6 @@ void			sort_five_node_a(t_list *stack_a, t_list *stack_b, int *sorted_node)
 	
 	i = 0;
 	mid = sorted_node[stack_a->count / 2];
-	printf("mid: %d\n", mid);
 	while (i < 2)
 	{
 		if (mid > stack_a->head->next->data)

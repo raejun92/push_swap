@@ -11,6 +11,7 @@ typedef struct	s_node
 	struct		s_node	*prev;
 	int			pivot;
 	int			rank;
+	int			sort;
 	int			data;
 }				t_node;
 
@@ -24,11 +25,14 @@ typedef struct	s_list
 int				rst;
 
 /* main.c */
-int		check_ascending(t_list stack_a);
 void			enroll_rank(t_list *stack_a, int *sorted_node);
 
 /* ft_utils.c */
 int				ft_atoi(const char *str);
+int				check_ascending(t_list stack_a);
+void			set_sort(t_list *stack);
+
+/* ft_utils2.c */
 void			error_msg();
 
 /* ft_linked_list.c */
