@@ -88,15 +88,46 @@ void			sort_stack_a(t_list *stack_a, t_list *stack_b, int start, int end)
 }
 
 // 기능: a에서 정렬 안 된 것 중 가장 작은 값 리턴, 리턴: a에서 정렬 안 된 것 중 가장 작은 값
+static int		stack_a_min(t_list stack)
+{
+	t_node	*tmp;
+	int		min;
+
+	min = 0;
+	tmp = stack.head->next;
+	while (tmp != stack.tail)
+	{
+		if (tmp->sort == 0 && tmp->rank < min)
+			min = tmp->rank;
+		tmp = tmp->next;
+	}
+	return (min);
+}
+
+// 기능: a에서 정렬되지 않은 것 중 가장 큰 값 리턴, 리턴: a에서 정렬되지 않은 것 중 가장 큰 값
+static int		stack_a_max(t_list stack)
+{
+	t_node	*tmp;
+	int		max;
+
+	max = 0;
+	tmp = stack.head->next;
+	while (tmp != stack.tail)
+	{
+		if (tmp->sort == 0 && tmp->rank > max)
+			max = tmp->rank;
+		tmp = tmp->next;
+	}
+	return (max);
+}
 
 // 기능: 스택을 정렬시키는 알고리즘, 리턴: void
 void			algorithm(t_list *stack_a, t_list *stack_b)
 {
-	// TODO: a의 start, end 정렬 되지 않은 것 중 가장 작은 수 와 큰 수
 	if (check_ascending(*stack_a) && stack_b->count == 0) // 스택a가 정렬되어 있고 스택b에 아무것도 없다면 조건 만족
 		return ;
 	else if (!check_ascending(*stack_a)) // 스택a가 정렬되어 있지 않다면 정렬
-		sort_stack_a(stack_a, stack_b, 1, stack_a->count);
+		sort_stack_a(stack_a, stack_b, stack_a_min(*stack_a), stack_a_max(*stack_a));
 	// else if (check_ascending(*stack_a) && stack_b->count != 0) // 스택a가 정렬되어 있고 스택b에 노드가 존재한다면 b정렬
 		// sort_stack_b();
 	if (check_ascending(*stack_a))

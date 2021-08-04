@@ -45,7 +45,7 @@ void			view_node(t_list *list)
 	seek = list->head->next;
 	while (seek != list->tail)
 	{
-		printf("%d\n", seek->rank);
+		printf("rank: %d \tsort: %d\n", seek->rank, seek->sort);
 		seek = seek->next;
 	}
 }
