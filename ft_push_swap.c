@@ -60,6 +60,22 @@ int				check_less_than_pivot(t_list stack, int pivot)
 	return (0);
 }
 
+// 기능: 정렬이 안 된 노드가 3개 이하일 때 정렬 시킴, 리턴: void
+void			check_and_sort(t_list *stack_a)
+{
+	int	cnt;
+
+	if (check_ascending(*stack_a)) // a가 정렬 되어 있으면 리턴
+		return ;
+	cnt = out_of_alignment(stack_a); // 정렬 되지 않은 노드의 개수
+	if (stack_a->count == 2 || cnt == 2)
+		sort_two_node_a(stack_a);
+	else if (stack_a->count == 3)
+		sort_three_node_a(stack_a);
+	if (cnt == 3)
+		sort_three(stack_a);
+}
+
 // 기능: 스택을 정렬시키는 알고리즘, 리턴: void
 void			algorithm(t_list *stack_a, t_list *stack_b)
 {
@@ -69,6 +85,7 @@ void			algorithm(t_list *stack_a, t_list *stack_b)
 		sort_stack_a(stack_a, stack_b, stack_a_min(*stack_a), stack_a_max(*stack_a));
 	// else if (check_ascending(*stack_a) && stack_b->count != 0) // 스택a가 정렬되어 있고 스택b에 노드가 존재한다면 b정렬
 		// sort_stack_b();
+	check_and_sort(stack_a);
 	if (check_ascending(*stack_a))
 		set_sort(stack_a);
 	// algorithm(stack_a, stack_b);
@@ -92,19 +109,15 @@ int				main(int argc, char **argv)
 	enroll_rank(&stack_a, sorted_node);
 	if (argc <= 4 || argc == 6)
 		sort_first_a(&stack_a, &stack_b, sorted_node);
-	algorithm(&stack_a, &stack_b);
+	else
+		algorithm(&stack_a, &stack_b);
 	printf("\n");
 	view_node(&stack_a);
 	printf("\n");
 	view_node(&stack_b);
-
-	/* TODO: 흐름
-	29 | 18 | 47 | 50 | 19 | 49 | 27 | 502 | 184 | 1293 | 1824 | 1 | 291
-	랭킹: 5 | 2 | 6 | 8 | 3 | 7 | 4 | 11 | 9 | 12 | 13 | 1 | 10
 	
-	값이 아닌 랭킹으로 정렬하자
-	피봇은 (가장 큰 랭킹 + 가장 작은 랭킹) / 2로 구한다
-	스택a에서 더 이상 pivot > 스택a의 랭킹인 값이 없을 때까지 찾는다
-	설정된 피봇값이 스택b를 나누는 기준이 된다
-	*/
+	
+	
+	free(sorted_node);
+	return (0);
 }

@@ -34,6 +34,7 @@ int				check_less_than_pivot(t_list stack, int pivot);
 int				ft_atoi(const char *str);
 int				check_ascending(t_list stack_a);
 void			set_sort(t_list *stack);
+int				out_of_alignment(t_list *stack);
 
 /* ft_utils2.c */
 void			error_msg();
@@ -79,5 +80,8 @@ void			sort_five_node_a(t_list *stack_a, t_list *stack_b, int *sorted_node);
 int				stack_a_max(t_list stack);
 int				stack_a_min(t_list stack);
 void			sort_stack_a(t_list *stack_a, t_list *stack_b, int start, int end);
+
+/* ft_sort.c */
+void			sort_three(t_list *stack);
 
 #endif

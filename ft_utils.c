@@ -68,3 +68,20 @@ void			set_sort(t_list *stack)
 		tmp = tmp->next;
 	}
 }
+
+// 기능: 스택에 정렬 안 된 노드의 개수 출력, 리턴: 정렬 안 된 노드 개수
+int				out_of_alignment(t_list *stack)
+{
+	int		cnt;
+	t_node	*tmp;
+
+	cnt = 0;
+	tmp = stack->head->next;
+	while (tmp != stack->tail)
+	{
+		if (tmp->sort == 0)
+			cnt++;
+		tmp = tmp->next;
+	}
+	return (cnt);
+}

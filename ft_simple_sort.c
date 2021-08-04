@@ -9,8 +9,6 @@ void			sort_two_node_a(t_list *stack)
 
 static void		sort_three_node_a2(t_list *stack)
 {
-	if (check_ascending(*stack))
-		return ;
 	// 3 1 2
 	if (stack->head->next->next->next->data > stack->head->next->next->data &&
 		stack->head->next->next->next->data < stack->head->next->data)
