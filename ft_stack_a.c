@@ -6,7 +6,7 @@ int				stack_a_max(t_list stack)
 	t_node	*tmp;
 	int		max;
 
-	max = 0;
+	max = -2147483648;
 	tmp = stack.head->next;
 	while (tmp != stack.tail)
 	{
@@ -23,7 +23,7 @@ int				stack_a_min(t_list stack)
 	t_node	*tmp;
 	int		min;
 
-	min = 0;
+	min = 2147483647;
 	tmp = stack.head->next;
 	while (tmp != stack.tail)
 	{
@@ -42,6 +42,7 @@ void			sort_stack_a(t_list *stack_a, t_list *stack_b, int start, int end)
 
 	if (start > end)
 		return ;
+	printf("start: %d \t end: %d\n", start, end);
 	pivot = (start + end) / 2;
 	set_pivot(stack_a, pivot);
 	while (check_less_than_pivot(*stack_a, pivot)) // 노드 <= pivot인 값이 하나라도 남아 있는지 확인

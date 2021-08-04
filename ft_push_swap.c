@@ -111,6 +111,7 @@ int				main(int argc, char **argv)
 		sort_first_a(&stack_a, &stack_b, sorted_node);
 	else
 		algorithm(&stack_a, &stack_b);
+	algorithm(&stack_a, &stack_b);
 	printf("\n");
 	view_node(&stack_a);
 	printf("\n");
