@@ -80,6 +80,11 @@ int				stack_a_max(t_list stack);
 int				stack_a_min(t_list stack);
 void			sort_stack_a(t_list *stack_a, t_list *stack_b, int start, int end);
 
+/* ft_stack_b.c */
+int				stack_b_max(t_list stack);
+int				stack_b_max_pivot(t_list stack);
+void			sort_stack_b(t_list *stack_a, t_list *stack_b, int start, int end);
+
 /* ft_sort.c */
 void			sort_three(t_list *stack);
 

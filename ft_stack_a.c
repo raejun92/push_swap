@@ -61,7 +61,6 @@ static void		sort_stack_a2(t_list *stack_a, t_list *stack_b, int cnt, int pivot)
 // 기능: 정렬되지 않은 노드 중 제일 큰 값과 작은 값 사이의 피봇을 구해서 피봇보다 작은 값은 b로 보냄, 리턴: void
 void			sort_stack_a(t_list *stack_a, t_list *stack_b, int start, int end)
 {
-	// TODO: 맨처음 피봇이 먼저 움직일 때 문제 발생
 	int		pivot;
 	int		cnt;
 
