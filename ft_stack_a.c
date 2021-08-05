@@ -1,6 +1,21 @@
 #include "ft_push_swap.h"
 
-// 기능: a에서 정렬되지 않은 것 중 가장 큰 값 리턴, 리턴: a에서 정렬되지 않은 것 중 가장 큰 값
+// 기능: pivot보다 작은 값이 남아 있는지 확인, 리턴: 남아 있으면 1 아니면 0
+static int		check_less_than_pivot(t_list stack, int pivot)
+{
+	t_node *tmp;
+
+	tmp = stack.head->next;
+	while (tmp != stack.tail)
+	{
+		if (tmp->rank <= pivot)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+// 기능: a에서 정렬되지 않은 것 중 가장 큰 랭킹 리턴, 리턴: a에서 정렬되지 않은 것 중 가장 큰 랭킹
 int				stack_a_max(t_list stack)
 {
 	t_node	*tmp;
@@ -17,7 +32,7 @@ int				stack_a_max(t_list stack)
 	return (max);
 }
 
-// 기능: a에서 정렬 안 된 것 중 가장 작은 값 리턴, 리턴: a에서 정렬 안 된 것 중 가장 작은 값
+// 기능: a에서 정렬 안 된 것 중 가장 작은 랭킹 리턴, 리턴: a에서 정렬 안 된 것 중 가장 작은 랭킹
 int				stack_a_min(t_list stack)
 {
 	t_node	*tmp;
@@ -34,15 +49,25 @@ int				stack_a_min(t_list stack)
 	return (min);
 }
 
-// 기능: 피봇을 구해서 피봇보다 작은 값은 b로 보내는 작업 반복, 리턴: void
+static void		sort_stack_a2(t_list *stack_a, t_list *stack_b, int cnt, int pivot)
+{
+
+	if (stack_b->head->next->rank != pivot)
+		rrb(stack_b);
+	while (cnt && cnt--)
+		rrb(stack_a);
+}
+
+// 기능: 정렬되지 않은 노드 중 제일 큰 값과 작은 값 사이의 피봇을 구해서 피봇보다 작은 값은 b로 보냄, 리턴: void
 void			sort_stack_a(t_list *stack_a, t_list *stack_b, int start, int end)
 {
-	// TODO: 3개 이하일 때 정렬 시키기, 노드가 없을 떄와 있을 때 나누어 정렬
+	// TODO: 맨처음 피봇이 먼저 움직일 때 문제 발생
 	int		pivot;
+	int		cnt;
 
+	cnt = 0;
 	if (start > end)
 		return ;
-	printf("start: %d \t end: %d\n", start, end);
 	pivot = (start + end) / 2;
 	set_pivot(stack_a, pivot);
 	while (check_less_than_pivot(*stack_a, pivot)) // 노드 <= pivot인 값이 하나라도 남아 있는지 확인
@@ -56,8 +81,10 @@ void			sort_stack_a(t_list *stack_a, t_list *stack_b, int start, int end)
 				rb(stack_b);
 		}
 		else
+		{
+			cnt++;
 			ra(stack_a);
+		}
 	}
-	if (stack_b->head->next->rank != pivot)
-		rrb(stack_b);
+	sort_stack_a2(stack_a, stack_b, cnt, pivot);
 }
