@@ -37,6 +37,7 @@ int				out_of_alignment(t_list *stack);
 
 /* ft_utils2.c */
 void			error_msg();
+void			set_pivot(t_list *stack_a, int pivot);
 
 /* ft_linked_list.c */
 t_node			*new_node(int data);
@@ -87,5 +88,9 @@ void			sort_stack_b(t_list *stack_a, t_list *stack_b, int start, int end);
 
 /* ft_sort.c */
 void			sort_three(t_list *stack);
+
+/* ft_algorithm.c */
+void			check_and_sort(t_list *stack_a);
+void			algorithm(t_list *stack_a, t_list *stack_b);
 
 #endif
