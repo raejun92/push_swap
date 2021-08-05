@@ -207,8 +207,6 @@ int				main(int argc, char **argv)
 	// printf("B\n");
 	// view_node(&stack_b);
 	
-	
-	// printf("\n rst: %d\n", rst);
 	free(sorted_node);
 	return (0);
 }

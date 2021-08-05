@@ -14,7 +14,7 @@ void			rra(t_list *stack)
 	tmp->next = stack->head->next; // 맨 뒤였던 노드의 next는 첫번째였던(헤드가 가리키던) 노드를 가리킴
 	stack->head->next->prev = tmp; // 첫번째였던 노드의 prev는 맨 뒤였던 노드를 가리킴
 	stack->head->next = tmp; // 헤드는 맨 뒤였던 노드를 가리킴
-	printf("rra\n");
+	write(1, "rra\n", 4);
 	rst += 1;
 }
 
@@ -31,7 +31,7 @@ void			rrb(t_list *stack)
 	tmp->next = stack->head->next; // 맨 뒤였던 노드의 next는 첫번째였던(헤드가 가리키던) 노드를 가리킴
 	stack->head->next->prev = tmp; // 첫번째였던 노드의 prev는 맨 뒤였던 노드를 가리킴
 	stack->head->next = tmp; // 헤드는 맨 뒤였던 노드를 가리킴
-	printf("rrb\n");
+	write(1, "rrb\n", 4);
 	rst += 1;
 }
 
@@ -57,6 +57,6 @@ void			rrr(t_list *stack_a, t_list *stack_b)
 	tmp_b->next = stack_b->head->next; // 맨 뒤였던 노드의 next는 첫번째였던(헤드가 가리키던) 노드를 가리킴
 	stack_b->head->next->prev = tmp_b; // 첫번째였던 노드의 prev는 맨 뒤였던 노드를 가리킴
 	stack_b->head->next = tmp_b; // 헤드는 맨 뒤였던 노드를 가리킴
-	printf("rrr\n");
+	write(1, "rrr\n", 4);
 	rst += 1;
 }

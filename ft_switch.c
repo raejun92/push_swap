@@ -14,7 +14,7 @@ void            sa(t_list *stack)
     tmp_rank = stack->head->next->rank;
     stack->head->next->rank = stack->head->next->next->rank;
     stack->head->next->next->rank = tmp_rank;
-    printf("sa\n");
+    write(1, "sa\n", 3);
     rst += 1;
 }
 
@@ -31,7 +31,7 @@ void            sb(t_list *stack)
     tmp_rank = stack->head->next->rank;
     stack->head->next->rank = stack->head->next->next->rank;
     stack->head->next->next->rank = tmp_rank;
-    printf("sb\n");
+    write(1, "sb\n", 3);
     rst += 1;
 }
 
@@ -57,6 +57,6 @@ void            ss(t_list *stack_a, t_list *stack_b)
     tmp_b_rank = stack_b->head->next->rank;
     stack_b->head->next->rank = stack_b->head->next->next->rank;
     stack_b->head->next->next->rank = tmp_b_rank;
-    printf("ss\n");
+    write(1, "ss\n", 3);
     rst += 1;
 }

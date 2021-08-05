@@ -19,7 +19,7 @@ void			pa(t_list *stack_a, t_list *stack_b)
 	stack_a->head->next->prev = cur;
 	stack_a->head->next = cur;
 	stack_a->count++;
-	printf("pa\n");
+	write(1, "pa\n", 3);
 	rst += 1;
 }
 
@@ -42,7 +42,7 @@ void			pb(t_list *stack_a, t_list *stack_b)
 	stack_b->head->next->prev = cur;
 	stack_b->head->next = cur;
 	stack_b->count++;
-	printf("pb\n");
+	write(1, "pb\n", 3);
 	rst += 1;
 }
 

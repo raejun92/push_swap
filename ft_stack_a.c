@@ -55,7 +55,7 @@ static void		sort_stack_a2(t_list *stack_a, t_list *stack_b, int cnt, int pivot)
 	if (stack_b->head->next->rank != pivot)
 		rrb(stack_b);
 	while (cnt && cnt--)
-		rrb(stack_a);
+		rra(stack_a);
 }
 
 // 기능: 정렬되지 않은 노드 중 제일 큰 값과 작은 값 사이의 피봇을 구해서 피봇보다 작은 값은 b로 보냄, 리턴: void
