@@ -21,10 +21,9 @@ typedef struct	s_list
 	int			count;
 }				t_list;
 
-/* main.c */
+/* ft_push_swap.c */
 void			enroll_rank(t_list *stack_a, int *sorted_node);
 void			sort_first_a(t_list *stack_a, t_list *stack_b, int *sorted_node);
-void			set_pivot(t_list *stack_a, int pivot);
 
 /* ft_utils.c */
 int				ft_atoi(const char *str);
