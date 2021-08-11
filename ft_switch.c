@@ -1,6 +1,6 @@
 #include "ft_push_swap.h"
 
-// 기능: 스택a 또는 스택b의 최상위 2개 자리를 바꿈, 리턴: void
+// 기능: 스택a의 최상위 2개 자리를 바꿈, 리턴: void
 void            sa(t_list *stack)
 {
     int tmp_data;
@@ -15,9 +15,9 @@ void            sa(t_list *stack)
     stack->head->next->rank = stack->head->next->next->rank;
     stack->head->next->next->rank = tmp_rank;
     write(1, "sa\n", 3);
-    rst += 1;
 }
 
+// 기능: 스택b의 최상위 2개 자리를 바꿈, 리턴: void
 void            sb(t_list *stack)
 {
     int tmp_data;
@@ -32,7 +32,6 @@ void            sb(t_list *stack)
     stack->head->next->rank = stack->head->next->next->rank;
     stack->head->next->next->rank = tmp_rank;
     write(1, "sb\n", 3);
-    rst += 1;
 }
 
 // 기능 : 스택a와 스택b 둘다 취상위 2개 자리를 바꿈, 리턴: void
@@ -58,5 +57,4 @@ void            ss(t_list *stack_a, t_list *stack_b)
     stack_b->head->next->rank = stack_b->head->next->next->rank;
     stack_b->head->next->next->rank = tmp_b_rank;
     write(1, "ss\n", 3);
-    rst += 1;
 }

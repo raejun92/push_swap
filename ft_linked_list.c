@@ -38,6 +38,7 @@ void			add_node(t_list *list, int data)
 	list->count++;
 }
 
+// 기능: 스택 상태 확인, 리턴: void
 void			view_node(t_list *list)
 {
 	t_node *seek;
@@ -45,19 +46,7 @@ void			view_node(t_list *list)
 	seek = list->head->next;
 	while (seek != list->tail)
 	{
-		printf("rank: %d \tsort: %d \tdata: %d \tpivot: %d\n", seek->rank, seek->sort, seek->data, seek->pivot);
+		// printf("rank: %d \tsort: %d \tdata: %d \tpivot: %d\n", seek->rank, seek->sort, seek->data, seek->pivot);
 		seek = seek->next;
 	}
 }
-
-// // 기능: 노드 삭제, 리턴: void
-// void			remove_node(t_list *list)
-// {
-// 	t_node *cur;
-
-// 	cur = list->head->next;
-// 	cur->prev->next = cur->next; // 이전 노드의 next를 cur의 다음 노드로 설정
-// 	cur->next->prev = cur->prev; // 다음 노드의 prev를 cur의 이전 노드로 설정
-// 	free(cur);
-// 	list->count--;
-// }

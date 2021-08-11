@@ -15,7 +15,6 @@ void			rra(t_list *stack)
 	stack->head->next->prev = tmp; // 첫번째였던 노드의 prev는 맨 뒤였던 노드를 가리킴
 	stack->head->next = tmp; // 헤드는 맨 뒤였던 노드를 가리킴
 	write(1, "rra\n", 4);
-	rst += 1;
 }
 
 void			rrb(t_list *stack)
@@ -32,7 +31,6 @@ void			rrb(t_list *stack)
 	stack->head->next->prev = tmp; // 첫번째였던 노드의 prev는 맨 뒤였던 노드를 가리킴
 	stack->head->next = tmp; // 헤드는 맨 뒤였던 노드를 가리킴
 	write(1, "rrb\n", 4);
-	rst += 1;
 }
 
 // 기능: a와 b 스택의 모든 요소 아래로 로페이션, 리턴: void
@@ -58,5 +56,4 @@ void			rrr(t_list *stack_a, t_list *stack_b)
 	stack_b->head->next->prev = tmp_b; // 첫번째였던 노드의 prev는 맨 뒤였던 노드를 가리킴
 	stack_b->head->next = tmp_b; // 헤드는 맨 뒤였던 노드를 가리킴
 	write(1, "rrr\n", 4);
-	rst += 1;
 }

@@ -47,16 +47,6 @@ int				main(int argc, char **argv)
 		sort_first_a(&stack_a, &stack_b, sorted_node);
 	else
 		algorithm(&stack_a, &stack_b);
-	// process_command(&stack_a);
-	// printf("\n");
-	// printf("A\n");
-	// view_node(&stack_a);
-	// printf("\n");
-	// printf("B\n");
-	// view_node(&stack_b);
-	// rst = 0;
-	// printf("\nrst: %d", rst);
-	
 	free(sorted_node);
 	return (0);
 }

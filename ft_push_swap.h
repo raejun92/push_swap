@@ -3,7 +3,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h> // 나중에 지움
 
 typedef struct	s_node
 {
@@ -21,8 +20,6 @@ typedef struct	s_list
 	t_node		*tail;
 	int			count;
 }				t_list;
-
-int				rst;
 
 /* main.c */
 void			enroll_rank(t_list *stack_a, int *sorted_node);
