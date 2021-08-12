@@ -28,11 +28,11 @@ int				ft_atoi(const char *str)
 	}
 	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9')
 	{
+		num = (num * 10) + (str[i] - '0');
 		if (num * sign > 2147483647)
 			error_msg();
 		if (num * sign < -2147483648)
 			error_msg();
-		num = (num * 10) + (str[i] - '0');
 		i++;
 	}
 	return (sign * num);
